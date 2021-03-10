@@ -1,6 +1,5 @@
 <template>
   <div class="Login">
-    <img alt="Vue logo" src="../assets/logo.png">
     <h1>用户登录</h1>
     <div>
       <el-form
@@ -78,6 +77,9 @@ export default {
         ]
       }
     }
+  },
+  created() {
+    document.title = "登录"
   },
   methods: {
     submitForm(formName) {

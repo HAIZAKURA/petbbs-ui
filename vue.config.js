@@ -24,6 +24,7 @@ module.exports = {
     //   }
     // }
   },
+
   chainWebpack: config => {
     config.resolve.alias
       .set('@', resolve('src'))
@@ -31,5 +32,9 @@ module.exports = {
       .set('components', resolve('src/components'))
       .set('views', resolve('views'))
       .set('assets', resolve('assets'))
+    config.plugin('html').tap(args => {
+      args[0].title = 'System'
+      return args
+    })
   }
 };

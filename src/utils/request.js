@@ -54,13 +54,15 @@ service.interceptors.response.use(
         }).then(() => {
           window.location.href = '#/login'
         })
-      } else { // 其他异常直接提示
-        Message({
-          showClose: true,
-          message: res.message || 'Error',
-          type: 'error',
-          duration: 3 * 1000
-        })
+      }
+      else { // 其他异常直接提示
+        // Message({
+        //   showClose: true,
+        //   message: res.message || 'Error',
+        //   type: 'error',
+        //   duration: 3 * 1000
+        // })
+        window.alert(res.message);
       }
       return Promise.reject(new Error(res.message || 'Error'))
     } else {

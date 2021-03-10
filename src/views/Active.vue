@@ -22,15 +22,12 @@ export default {
     this.activeDTO.code = this.$route.query.code;
     activeUser(this.activeDTO)
         .then((value) => {
-          const { code, message } = value;
-          if (code === 200) {
-            window.alert(message);
-          } else {
-            window.alert(message);
-          }
-          setTimeout(() => {
-            this.$router.push({ path: this.redirect || "/" })
-          }, 0.1 * 1000)
+          const { message } = value;
+          window.alert(message);
+          this.$router.push({ path: "/" });
+        })
+        .catch(() => {
+          this.$router.push({ path: "/reactive" })
         })
   }
 }

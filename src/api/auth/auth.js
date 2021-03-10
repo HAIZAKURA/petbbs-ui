@@ -21,6 +21,7 @@ export function userLogin(LoginDTO) {
 // 用户注销
 export function userLogout() {
   return request({
-    url: '/api/logout'
+    url: '/api/logout',
+    method: 'get'
   })
 }

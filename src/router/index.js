@@ -11,9 +11,37 @@ const routes = [
     component: Home,
     children: [
       {
+        path: '/',
+        name: 'Forum',
+        component: () => import('../views/Forum'),
+        meta: {
+          title: '首页'
+        }
+      },
+      {
         path: '/about',
         name: 'About',
         component: () => import('../views/About.vue')
+      },
+      {
+        path: '/login',
+        name: 'Login',
+        component: () => import('../views/Login')
+      },
+      {
+        path: '/register',
+        name: 'Register',
+        component: () => import('../views/Register')
+      },
+      {
+        path: '/active',
+        name: 'Active',
+        component: () => import('../views/Active')
+      },
+      {
+        path: '/reactive',
+        name: 'ReActive',
+        component: () => import('../views/ReActive')
       }
     ]
   },
@@ -28,30 +56,18 @@ const routes = [
         component: () => import('../views/admin/Dash.vue')
       }
     ]
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../views/Login')
-  },
-  {
-    path: '/register',
-    name: 'Register',
-    component: () => import('../views/Register')
-  },
-  {
-    path: '/active',
-    name: 'Active',
-    component: () => import('../views/Active')
-  },
-  {
-    path: '/reactive',
-    name: 'ReActive',
-    component: () => import('../views/ReActive')
   }
 ]
 
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 const router = new VueRouter({
+  mode: 'hash',
+  base: '/',
+  scrollBehavior: () => ({ y: 0 }),
   routes
 })
 

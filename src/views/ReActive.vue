@@ -1,5 +1,7 @@
 <template>
-  <div class="ReActive"></div>
+  <div class="ReActive">
+    <h1>重新激活</h1>
+  </div>
 </template>
 
 <script>

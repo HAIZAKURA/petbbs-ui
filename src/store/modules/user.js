@@ -5,10 +5,10 @@ import { getToken, removeToken, setToken } from '@/utils/auth'
 const state = {
   token: getToken(), // token
   user: '', // 用户对象
-  name: '',
+  username: '',
   avatar: '',
-  introduction: '',
-  roles: []
+  bio: '',
+  roleId: 10001
 }
 const mutations = {
   SET_TOKEN_STATE: (state, token) => {
@@ -47,7 +47,7 @@ const actions = {
           resolve()
           reject('Verification failed, please Login again.')
         }
-        commit('SET_USER_STATE', data)
+        commit('SET_USER_STATE', data.user)
         resolve(data)
       }).catch(error => {
         reject(error)

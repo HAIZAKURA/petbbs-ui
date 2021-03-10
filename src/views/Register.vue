@@ -60,6 +60,7 @@ export default {
       }
     }
     return {
+      redirect: undefined,
       loading: false,
       ruleForm: {
         name: "",
@@ -119,6 +120,9 @@ export default {
         ]
       }
     }
+  },
+  created() {
+    document.title = "注册"
   },
   methods: {
     submitForm(formName) {

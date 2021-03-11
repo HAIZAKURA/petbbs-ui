@@ -38,7 +38,7 @@ export default {
 
 <style lang="stylus" scoped>
 footer
-  margin-top 150px
+  margin-top 80px
   height 100px
   a
     color #bfbfbf

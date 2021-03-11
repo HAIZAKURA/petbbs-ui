@@ -34,11 +34,6 @@ const routes = [
         component: () => import('../views/Register')
       },
       {
-        path: '/active',
-        name: 'Active',
-        component: () => import('../views/Active')
-      },
-      {
         path: '/reactive',
         name: 'ReActive',
         component: () => import('../views/ReActive')

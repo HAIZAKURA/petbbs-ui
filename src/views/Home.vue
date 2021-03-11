@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div id="home">
     <div class="mb-5">
       <Header></Header>
     </div>
@@ -20,11 +20,11 @@
 </template>
 
 <script>
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
     Header,
     Footer

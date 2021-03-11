@@ -6,7 +6,12 @@
     >
       <template slot="brand">
         <b-navbar-item tag="div">
-          <img :src="$root.site_info.site_logo" alt="logo" />
+          <img
+              :src="$root.site_info.site_logo"
+              alt="logo"
+              style="cursor: pointer"
+              @click="gotoHome()"
+          />
         </b-navbar-item>
 
         <b-navbar-item
@@ -14,18 +19,6 @@
             tag="router-link"
             :to="{ path: '/' }"
         >主页</b-navbar-item>
-      </template>
-
-      <template slot="start">
-        <b-navbar-item
-            tag="router-link"
-            :to="{ path: '/' }"
-        >🌐 主页</b-navbar-item>
-
-        <b-navbar-item
-            tag="a"
-            href="tencent://message/?Menu=yes&uin=860638556"
-        >👾 反馈</b-navbar-item>
       </template>
 
       <template slot="end">
@@ -40,7 +33,9 @@
                 @keyup.enter.native="search()"
             />
             <p class="control">
-              <b-button class="is-info" @click="search()">搜索</b-button>
+              <b-button class="is-info" @click="search()">
+                <i class="fa fa-search"></i>
+              </b-button>
             </p>
           </b-field>
         </b-navbar-item>
@@ -63,38 +58,73 @@
           </div>
         </b-navbar-item>
 
-        <b-navbar-dropdown
+        <b-navbar-item
             v-else
+            tag="router-link"
+            :to="{ path: '' }"
+        >
+          <el-badge :value="newNotifyNum" class="item" v-if="newNotifyNum > 0">
+            <i class="el-icon-message-solid"></i>
+          </el-badge>
+          <el-badge class="item" v-else>
+            <i class="el-icon-message-solid"></i>
+          </el-badge>
+        </b-navbar-item>
+
+        <b-navbar-dropdown
+            v-if="token != null && token !== ''"
+            :hoverable="true"
+            :arrowless="true"
             :label="user.alias"
         >
           <b-navbar-item
               tag="router-link"
               :to="{ path: '' }"
-          >🧘 个人中心</b-navbar-item>
+          > 🧘 个人中心</b-navbar-item>
+          <hr class="dropdown-divider" />
+          <b-navbar-item
+              tag="router-link"
+              :to="{ path: '' }"
+          > 🗂 我的收藏</b-navbar-item>
           <hr class="dropdown-divider" />
           <b-navbar-item
               tag="a"
               @click="logout"
-          > 👋 退出登录</b-navbar-item>
+          > 👋 注销登录</b-navbar-item>
         </b-navbar-dropdown>
+
+        <b-navbar-item v-if="token != null && token !== ''" tag="div">
+          <img
+              :src="user.avatar"
+              :alt="user.alias"
+              style="border-radius: 50%"
+          />
+        </b-navbar-item>
       </template>
     </b-navbar>
   </header>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
+import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
+import { getNewNotify } from '@/api/notify'
 
 export default {
   name: "Header",
   data() {
     return {
-      searchKey: ''
+      searchKey: '',
+      newNotifyNum: 0
     }
   },
   computed: {
     ...mapGetters(['token', 'user'])
+  },
+  mounted() {
+    if (this.token != null && this.token !== '') {
+      this.fetchNewNotify()
+    }
   },
   methods: {
     async logout() {
@@ -110,6 +140,14 @@ export default {
             }, 1000)
           })
     },
+    async fetchNewNotify() {
+      getNewNotify().then((data) => {
+        this.newNotifyNum = data.data.length
+      })
+    },
+    gotoHome() {
+      this.$router.push({ path: '/' })
+    },
     ...mapActions({
       userLogout: 'user/logout'
     })
@@ -121,4 +159,5 @@ export default {
 input
   width 80%
   height 86%
+
 </style>

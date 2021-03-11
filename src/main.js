@@ -14,6 +14,10 @@ import './permission'
 import './assets/app.css'
 import './assets/plugins/font-awesome-4.7.0/css/font-awesome.min.css'
 
+import relativeTime from 'dayjs/plugin/relativeTime'
+import calendar from 'dayjs/plugin/calendar'
+import updateLocale from 'dayjs/plugin/updateLocale'
+
 import router from './router'
 import store from './store'
 
@@ -26,6 +30,18 @@ Vue.use(VueRouter)
 Vue.use(Buefy)
 
 Vue.use(ElementUI)
+
+const dayjs = require('dayjs')
+
+require('dayjs/locale/zh-cn')
+
+dayjs.extend(relativeTime)
+dayjs.extend(calendar)
+dayjs.extend(updateLocale)
+dayjs.locale('zh-cn')
+dayjs().locale('zh-cn').format()
+
+Vue.prototype.dayjs = dayjs
 
 new Vue({
   data: () => {

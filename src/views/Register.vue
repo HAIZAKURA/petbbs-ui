@@ -1,5 +1,5 @@
 <template>
-  <div class="Register">
+  <div id="register">
     <h1>用户注册</h1>
     <div>
       <el-form
@@ -51,10 +51,10 @@ export default {
   name: "Register",
   data() {
     const validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请再次输入密码！"));
+      if (value === '') {
+        callback(new Error('请再次输入密码！'));
       } else if (value !== this.ruleForm.pass) {
-        callback(new Error("两次输入密码不一致！"));
+        callback(new Error('两次输入密码不一致！'));
       } else {
         callback();
       }
@@ -63,66 +63,66 @@ export default {
       redirect: undefined,
       loading: false,
       ruleForm: {
-        name: "",
-        pass: "",
-        checkPass: "",
-        email: ""
+        name: '',
+        pass: '',
+        checkPass: '',
+        email: ''
       },
       rules: {
         name: [
           {
             required: true,
-            message: "请输入用户名",
-            trigger: "blur"
+            message: '请输入用户名',
+            trigger: 'blur'
           },
           {
             min: 3,
             max: 15,
-            message: "用户名长度应为3-15",
-            trigger: "blur"
+            message: '用户名长度应为3-15',
+            trigger: 'blur'
           }
         ],
         pass: [
           {
             required: true,
-            message: "请输入密码",
-            trigger: "blur"
+            message: '请输入密码',
+            trigger: 'blur'
           },
           {
             min: 6,
             max: 20,
-            message: "密码长度应为6-20",
-            trigger: "blur"
+            message: '密码长度应为6-20',
+            trigger: 'blur'
           }
         ],
         checkPass: [
           {
             required: true,
-            message: "请再次输入密码",
-            trigger: "blur"
+            message: '请再次输入密码',
+            trigger: 'blur'
           },
           {
             validator: validatePass,
-            trigger: "blur"
+            trigger: 'blur'
           }
         ],
         email: [
           {
             required: true,
-            message: "请输入邮箱",
-            trigger: "blur"
+            message: '请输入邮箱',
+            trigger: 'blur'
           },
           {
-            type: "email",
-            message: "请输入正确的邮箱",
-            trigger: ["blur", "change"]
+            type: 'email',
+            message: '请输入正确的邮箱',
+            trigger: ['blur', 'change']
           }
         ]
       }
     }
   },
   created() {
-    document.title = "注册"
+    document.title = '注册'
   },
   methods: {
     submitForm(formName) {
@@ -134,8 +134,8 @@ export default {
                 const { code, message } = value;
                 if (code === 200) {
                   this.$message({
-                    message: "账号注册成功，请在30分钟内前往邮箱激活账号",
-                    type: "success"
+                    message: '账号注册成功，请在30分钟内前往邮箱激活账号',
+                    type: 'success'
                   })
                   setTimeout(() => {
                     this.loading = false;
@@ -160,6 +160,6 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 
 </style>

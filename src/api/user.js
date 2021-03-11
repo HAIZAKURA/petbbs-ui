@@ -44,7 +44,7 @@ export function getUser(pageNum, pageSize) {
 // 获取指定用户主页
 export function getUserByNameOrId(usernameXid, pageNum, pageSize) {
   return request({
-    url: '/api/user' + usernameXid,
+    url: '/api/user/' + usernameXid,
     method: 'get',
     params: {
       pageNum: pageNum,

@@ -8,7 +8,7 @@
         <p>{{ hitokoto.hitokoto }}</p>
       </div>
       <div class="has-text-right mt-5 block">
-        <p>—— {{ hitokoto.from }}</p>
+        <p>FROM<span class="mx-1"></span>{{ hitokoto.from }}</p>
       </div>
     </div>
   </el-card>
@@ -30,9 +30,9 @@ export default {
   },
   methods: {
     getHitokoto() {
-      axios.get('https://v1.alapi.cn/api/hitokoto').then((res) => {
-        // console.log(res.data.data)
-        this.hitokoto = res.data.data
+      axios.get('https://v1.hitokoto.cn').then((res) => {
+        // console.log(res.data)
+        this.hitokoto = res.data
       })
     }
   }

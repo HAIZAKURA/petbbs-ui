@@ -37,6 +37,36 @@ const routes = [
         path: '/reactive',
         name: 'ReActive',
         component: () => import('../views/ReActive')
+      },
+      {
+        path: '/post/:id',
+        name: 'Post',
+        component: () => import('../views/Post')
+      },
+      {
+        path: '/new',
+        name: 'CreatePost',
+        component: () => import('../views/CreatePost')
+      },
+      {
+        path: '/tags',
+        name: 'Tags',
+        component: () => import('../views/Tags')
+      },
+      {
+        path: '/tags/:id',
+        name: 'TagPostList',
+        component: () => import('../views/TagPost')
+      },
+      {
+        path: '/sections',
+        name: 'Sections',
+        component: () => import('../views/Sections')
+      },
+      {
+        path: '/sections/:id',
+        name: 'SectionPostList',
+        component: () => import('../views/SectionPost')
       }
     ]
   },

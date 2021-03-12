@@ -29,6 +29,14 @@ export function getUserInfo() {
   })
 }
 
+// 获取指定用户信息
+export function getUserInfoByUsernameOrId(usernameXid) {
+  return request({
+    url: '/api/user/info/' + usernameXid,
+    method: 'get'
+  })
+}
+
 // 获取当前用户主页
 export function getUser(pageNum, pageSize) {
   return request({

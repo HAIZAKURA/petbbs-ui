@@ -63,11 +63,11 @@
             tag="router-link"
             :to="{ path: '' }"
         >
-          <el-badge :value="newNotifyNum" class="item" v-if="newNotifyNum > 0">
-            <i class="el-icon-message-solid"></i>
+          <el-badge :value="newNotifyNum" :max="10" class="item" v-if="newNotifyNum > 0">
+            <i class="fas fa-bell"></i>
           </el-badge>
           <el-badge class="item" v-else>
-            <i class="el-icon-message-solid"></i>
+            <i class="fas fa-bell"></i>
           </el-badge>
         </b-navbar-item>
 
@@ -123,7 +123,9 @@ export default {
   },
   mounted() {
     if (this.token != null && this.token !== '') {
-      this.fetchNewNotify()
+      setInterval(() => {
+        this.fetchNewNotify()
+      }, 3000)
     }
   },
   methods: {

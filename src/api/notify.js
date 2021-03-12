@@ -17,4 +17,9 @@ export function getAllNotify() {
 }
 
 // 已读通知
-export function setReadNotify() {}
+export function setReadNotify(id) {
+  return request({
+    url: '/api/notify/' + id,
+    method: 'put'
+  })
+}

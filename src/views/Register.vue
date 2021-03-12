@@ -1,45 +1,51 @@
 <template>
-  <div id="register">
-    <h1>用户注册</h1>
-    <div>
-      <el-form
-          ref="ruleForm"
-          v-loading="loading"
-          :model="ruleForm"
-          status-icon
-          :rules="rules"
-          label-width="100px"
-          class="demo-ruleForm"
-      >
-        <el-form-item label="账号" prop="name">
-          <el-input v-model="ruleForm.name" />
-        </el-form-item>
+  <div id="register" class="columns py-6">
+    <div class="column is-half is-offset-one-quarter">
+      <el-card shadow="never" class="content">
+        <div slot="header" class="has-text-centered card-title">
+          <span>新用户入驻</span>
+        </div>
+        <div>
+          <el-form
+              ref="ruleForm"
+              v-loading="loading"
+              :model="ruleForm"
+              status-icon
+              :rules="rules"
+              label-width="100px"
+              class="demo-ruleForm"
+          >
+            <el-form-item label="账号" prop="name">
+              <el-input v-model="ruleForm.name" />
+            </el-form-item>
 
-        <el-form-item label="密码" prop="pass">
-          <el-input
-              v-model="ruleForm.pass"
-              type="password"
-              autocomplete="off"
-          />
-        </el-form-item>
+            <el-form-item label="密码" prop="pass">
+              <el-input
+                  v-model="ruleForm.pass"
+                  type="password"
+                  autocomplete="off"
+              />
+            </el-form-item>
 
-        <el-form-item label="确认密码" prop="checkPass">
-          <el-input
-              v-model="ruleForm.checkPass"
-              type="password"
-              autocomplete="off"
-          />
-        </el-form-item>
+            <el-form-item label="确认密码" prop="checkPass">
+              <el-input
+                  v-model="ruleForm.checkPass"
+                  type="password"
+                  autocomplete="off"
+              />
+            </el-form-item>
 
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="ruleForm.email" autocomplete="off" />
-        </el-form-item>
+            <el-form-item label="邮箱" prop="email">
+              <el-input v-model="ruleForm.email" autocomplete="off" />
+            </el-form-item>
 
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">立即注册</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
-        </el-form-item>
-      </el-form>
+            <el-form-item>
+              <el-button type="primary" @click="submitForm('ruleForm')">立即注册</el-button>
+              <el-button @click="resetForm('ruleForm')">重置</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-card>
     </div>
   </div>
 </template>
@@ -122,7 +128,7 @@ export default {
     }
   },
   created() {
-    document.title = '注册'
+    document.title = '新用户入驻'
   },
   methods: {
     submitForm(formName) {
@@ -161,5 +167,10 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+.card-title
+  height 36px
+  span
+    line-height 36px
+    font-size 24px
 
 </style>

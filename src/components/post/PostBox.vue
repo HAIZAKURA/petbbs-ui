@@ -7,7 +7,15 @@
       <el-col :span="19">
         <div class="post-box-info">
           <div class="post-title">
-            <router-link class="title-link" :to="{ path: '/' }">{{ postInfo.title }}</router-link>
+            <span v-if="postInfo.top">
+              <el-tag type="danger" size="mini" effect="dark">置顶</el-tag>
+              <span class="mx-1"></span>
+            </span>
+            <span v-if="postInfo.essence">
+              <el-tag size="mini" effect="dark">精华</el-tag>
+              <span class="mx-1"></span>
+            </span>
+            <router-link class="title-link" :to="{ name: 'Post', params: { id: postInfo.id }}">{{ postInfo.title }}</router-link>
           </div>
           <div class="post-info">
             <p>
@@ -19,7 +27,7 @@
               <span v-for="(tag, index) in postInfo.tags" :key="index">
                 <span style="color: #C0C4CC">  •  </span>
                 <el-tag type="info" size="mini">
-                  <router-link style="color:#606266" :to="{ path: '/tags/' + tag.name }"><i class="fa fa-tag"></i>&nbsp;{{ tag.name }}</router-link>
+                  <router-link style="color:#606266" :to="{ name: 'TagPostList', params: { id: tag.id }, query: { name: tag.name }}"><i class="fas fa-tag"></i>&nbsp;{{ tag.name }}</router-link>
                 </el-tag>
               </span>
             </p>
@@ -28,7 +36,7 @@
       </el-col>
       <el-col :span="3">
         <div class="post-box-comments">
-          <p style="font-weight: bold"><el-tag type="info" size="small" effect="plain"><i class="fa fa-commenting"></i>&nbsp;{{ postInfo.comments }}</el-tag></p>
+          <p style="font-weight: bold"><el-tag type="info" size="small" effect="plain"><i class="fas fa-comment-alt"></i>&nbsp;{{ postInfo.comments }}</el-tag></p>
         </div>
       </el-col>
     </el-row>

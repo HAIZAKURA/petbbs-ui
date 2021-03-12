@@ -3,18 +3,28 @@
     <el-card>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane label="🆕 最新话题" name="latest">
-          <div v-for="(item, key) in postList" :key="key">
-            <transition name="el-fade-in">
-              <PostBox :post-info="item"></PostBox>
-            </transition>
+          <div v-if="postList.length > 0">
+            <div v-for="(item, key) in postList" :key="key">
+              <transition name="el-fade-in">
+                <PostBox :post-info="item"></PostBox>
+              </transition>
+            </div>
+          </div>
+          <div v-else class="nocontent">
+            <p>暂时没有相关话题哦～</p>
           </div>
         </el-tab-pane>
 
         <el-tab-pane label="✨ 精华话题" name="essence" :lazy="true">
-          <div v-for="(item, key) in postList" :key="key">
-            <transition name="el-fade-in">
-              <PostBox :post-info="item"></PostBox>
-            </transition>
+          <div v-if="postList.length > 0">
+            <div v-for="(item, key) in postList" :key="key">
+              <transition name="el-fade-in">
+                <PostBox :post-info="item"></PostBox>
+              </transition>
+            </div>
+          </div>
+          <div v-else class="nocontent">
+            <p>暂时没有相关话题哦～</p>
           </div>
         </el-tab-pane>
 

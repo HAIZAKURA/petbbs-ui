@@ -12,7 +12,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './permission'
 
 import './assets/app.css'
-import './assets/plugins/font-awesome-4.7.0/css/font-awesome.min.css'
+// import './assets/plugins/font-awesome-4.7.0/css/font-awesome.min.css'
+import './assets/plugins/fontawesome-free-5.15.2-web/css/all.min.css'
 
 import relativeTime from 'dayjs/plugin/relativeTime'
 import calendar from 'dayjs/plugin/calendar'

@@ -1,37 +1,42 @@
 <template>
-  <div id="login">
-    <h1>用户登录</h1>
-    <div>
-      <el-form
-          v-loading="loading"
-          :model="ruleForm"
-          status-icon
-          :rules="rules"
-          ref="ruleForm"
-          label-width="100px"
-          class="demo-ruleForm"
-      >
-        <el-form-item label="账号" prop="username">
-          <el-input v-model="ruleForm.username"></el-input>
-        </el-form-item>
+  <div id="login" class="columns py-6">
+    <div class="column is-half is-offset-one-quarter">
+      <el-card class="content">
+        <div slot="header" class="has-text-centered card-title">
+          <span>用户登录</span>
+        </div>
+        <div>
+          <el-form
+              v-loading="loading"
+              :model="ruleForm"
+              status-icon
+              :rules="rules"
+              ref="ruleForm"
+              label-width="100px"
+          >
+            <el-form-item label="账号" prop="username">
+              <el-input v-model="ruleForm.username"></el-input>
+            </el-form-item>
 
-        <el-form-item label="密码" prop="password">
-          <el-input
-              type="password"
-              v-model="ruleForm.password"
-              autocomplete="off"
-          ></el-input>
-        </el-form-item>
+            <el-form-item label="密码" prop="password">
+              <el-input
+                  type="password"
+                  v-model="ruleForm.password"
+                  autocomplete="off"
+              ></el-input>
+            </el-form-item>
 
-        <el-form-item label="记住" prop="delivery">
-          <el-switch v-model="ruleForm.rememberMe"></el-switch>
-        </el-form-item>
+            <el-form-item label="记住" prop="delivery">
+              <el-switch v-model="ruleForm.rememberMe"></el-switch>
+            </el-form-item>
 
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
-        </el-form-item>
-      </el-form>
+            <el-form-item>
+              <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+              <el-button @click="resetForm('ruleForm')">重置</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-card>
     </div>
   </div>
 </template>
@@ -114,5 +119,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
+.card-title
+  height 36px
+  span
+    line-height 36px
+    font-size 24px
 </style>

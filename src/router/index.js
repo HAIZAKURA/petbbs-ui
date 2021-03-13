@@ -67,6 +67,36 @@ const routes = [
         path: '/sections/:id',
         name: 'SectionPostList',
         component: () => import('../views/SectionPost')
+      },
+      {
+        path: '/search',
+        name: 'Search',
+        component: () => import('../views/Search')
+      },
+      {
+        path: '/random',
+        name: 'Random',
+        component: () => import('../views/Random')
+      },
+      {
+        path: '/notify',
+        name: 'Notify',
+        component: () => import('../views/Notify')
+      },
+      {
+        path: '/my',
+        name: 'My',
+        component: () => import('../views/My')
+      },
+      {
+        path: '/user/:id',
+        name: 'User',
+        component: () => import('../views/User')
+      },
+      {
+        path: '/profile',
+        name: 'Profile',
+        component: () => import('../views/Profile')
       }
     ]
   },

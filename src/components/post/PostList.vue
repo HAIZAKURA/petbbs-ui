@@ -97,7 +97,7 @@ export default {
           })
     },
     handleClick(tab) {
-      console.log(tab.name)
+      // console.log(tab.name)
       this.getList(tab.name)
     }
   }

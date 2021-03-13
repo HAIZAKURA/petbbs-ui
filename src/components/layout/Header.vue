@@ -61,7 +61,7 @@
         <b-navbar-item
             v-else
             tag="router-link"
-            :to="{ path: '' }"
+            :to="{ name: 'Notify' }"
         >
           <el-badge :value="newNotifyNum" :max="10" class="item" v-if="newNotifyNum > 0">
             <i class="fas fa-bell"></i>
@@ -79,13 +79,8 @@
         >
           <b-navbar-item
               tag="router-link"
-              :to="{ path: '' }"
+              :to="{ path: '/my' }"
           > 🧘 个人中心</b-navbar-item>
-          <hr class="dropdown-divider" />
-          <b-navbar-item
-              tag="router-link"
-              :to="{ path: '' }"
-          > 🗂 我的收藏</b-navbar-item>
           <hr class="dropdown-divider" />
           <b-navbar-item
               tag="a"
@@ -124,7 +119,9 @@ export default {
   mounted() {
     if (this.token != null && this.token !== '') {
       setInterval(() => {
-        this.fetchNewNotify()
+        if (this.token != null && this.token !== '') {
+          this.fetchNewNotify()
+        }
       }, 3000)
     }
   },
@@ -149,6 +146,9 @@ export default {
     },
     gotoHome() {
       this.$router.push({ path: '/' })
+    },
+    search() {
+      this.$router.push({ name: 'Search', query: { keyword: this.searchKey } })
     },
     ...mapActions({
       userLogout: 'user/logout'

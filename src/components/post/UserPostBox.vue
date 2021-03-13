@@ -1,8 +1,8 @@
 <template>
-  <div class="post-box" :postInfo="postInfo">
+  <div class="post-box" :postInfo="postInfo" :user="user">
     <el-row :gutter="10">
       <el-col :span="2">
-        <img class="post-box-avatar" :src="postInfo.avatar + '?imageView2/1/w/100/h/100/format/webp/q/80'" :alt="postInfo.alias" />
+        <img class="post-box-avatar" :src="user.avatar + '?imageView2/1/w/100/h/100/format/webp/q/80'" :alt="postInfo.alias" />
       </el-col>
       <el-col :span="19">
         <div class="post-box-info">
@@ -20,7 +20,7 @@
           <div class="post-info">
             <p>
               <span>
-                <router-link style="font-weight: 600;color:#606266" :to="{ path: '/' }">{{ postInfo.alias }}</router-link>
+                <router-link style="font-weight: 600;color:#606266" :to="{ path: '/' }">{{ user.alias }}</router-link>
               </span>
               <span style="color: #C0C4CC">  •  </span>
               <span>{{ dayjs(postInfo.createTime).calendar() }}</span>
@@ -45,9 +45,12 @@
 
 <script>
 export default {
-  name: "PostBox",
+  name: "UserPostBox",
   props: {
     postInfo: {
+      required: true
+    },
+    user: {
       required: true
     }
   }

@@ -25,7 +25,7 @@
             <div class="level-left">
               <p class="level-item">
                 <b-taglist>
-                  <router-link v-for="(tag, index) in tags" :key="index" :to="{ name: 'tag', params: { name: tag.name } }">
+                  <router-link v-for="(tag, index) in tags" :key="index" :to="{ name: 'TagPostList', params: { id: tag.id }, query: { name: tag.name } }">
                     <span class="tag is-plain"><i class="fas fa-tag"></i><span class="mx-1"></span>{{ tag.name }}</span>
                   </router-link>
                 </b-taglist>

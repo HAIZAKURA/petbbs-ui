@@ -44,7 +44,7 @@ const routes = [
         component: () => import('../views/Post')
       },
       {
-        path: '/new',
+        path: '/new/post',
         name: 'CreatePost',
         component: () => import('../views/CreatePost')
       },
@@ -97,6 +97,21 @@ const routes = [
         path: '/profile',
         name: 'Profile',
         component: () => import('../views/Profile')
+      },
+      {
+        path: '/photos',
+        name: 'PhotoStream',
+        component: () => import('../views/PhotoStream')
+      },
+      {
+        path: '/photos/:id',
+        name: 'Photo',
+        component: () => import('../views/Photo')
+      },
+      {
+        path: '/new/photo',
+        name: 'CreatePhoto',
+        component: () => import('../views/CreatePhoto')
       }
     ]
   },

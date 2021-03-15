@@ -22,6 +22,14 @@ export function addComment(CommentDTO) {
   })
 }
 
+export function addCommentPhoto(CommentDTO) {
+  return request({
+    url: '/api/comment/photo',
+    method: 'post',
+    data: CommentDTO
+  })
+}
+
 // 删除评论
 export function delComment(id) {
   return request({

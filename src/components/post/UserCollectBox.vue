@@ -1,12 +1,13 @@
 <template>
-  <div class="post-box" :postInfo="postInfo">
+  <div class="collect-box" :postInfo="postInfo">
     <el-row :gutter="10">
       <el-col :span="2">
-        <img class="post-box-avatar" :src="postInfo.avatar + '?imageView2/1/w/100/h/100/format/webp/q/80'" :alt="postInfo.alias" />
+        <img class="collect-box-avatar" :src="postInfo.avatar + '?imageView2/1/w/100/h/100/format/webp/q/80'" :alt="postInfo.alias" />
       </el-col>
-      <el-col :span="19">
-        <div class="post-box-info">
-          <div class="post-title">
+
+      <el-col :span="18">
+        <div class="collect-box-info">
+          <div class="collect-title">
             <span v-if="postInfo.top">
               <el-tag type="danger" size="mini" effect="dark">置顶</el-tag>
               <span class="mx-1"></span>
@@ -15,12 +16,12 @@
               <el-tag size="mini" effect="dark">精华</el-tag>
               <span class="mx-1"></span>
             </span>
-            <router-link class="title-link" :to="{ name: 'Post', params: { id: postInfo.id }}">{{ postInfo.title }}</router-link>
+            <router-link class="title-link" :to="{ name: 'Post', params: { id: postInfo.postId }}">{{ postInfo.title }}</router-link>
           </div>
-          <div class="post-info">
+          <div class="collect-info">
             <p>
               <span>
-                <router-link style="font-weight: 600;color:#606266" :to="{ name: 'User', params: { id: postInfo.userId } }">{{ postInfo.alias }}</router-link>
+                <router-link style="font-weight: 600;color:#606266" :to="{ path: '/' }">{{ postInfo.alias }}</router-link>
               </span>
               <span style="color: #C0C4CC">  •  </span>
               <span>{{ dayjs(postInfo.createTime).calendar() }}</span>
@@ -34,9 +35,12 @@
           </div>
         </div>
       </el-col>
-      <el-col :span="3">
-        <div class="post-box-comments">
-          <p style="font-weight: bold"><el-tag type="info" size="small" effect="plain"><i class="fas fa-comment-alt"></i>&nbsp;{{ postInfo.comments }}</el-tag></p>
+
+      <el-col :span="4">
+        <div class="collect-box-comments">
+          <span style="font-weight: bold"><el-tag type="info" size="small" effect="plain"><i class="fas fa-comment-alt"></i>&nbsp;{{ postInfo.comments }}</el-tag></span>
+          <span class="mx-1"></span>
+          <span style="font-weight: bold"><el-tag type="danger" size="small" effect="dark"><i class="fas fa-trash"></i></el-tag></span>
         </div>
       </el-col>
     </el-row>
@@ -45,7 +49,7 @@
 
 <script>
 export default {
-  name: "PostBox",
+  name: "UserCollectBox",
   props: {
     postInfo: {
       required: true
@@ -55,35 +59,35 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.post-box
+.collect-box
   width 100%
   height 80px
   padding 8px 0
 
-.post-box-avatar
+.collect-box-avatar
   height 48px
   width 48px
   border-radius 50%
   overflow hidden
   margin-top 6px
 
-.post-box-info
+.collect-box-info
   height 48px
   overflow hidden
   margin-top 6px
 
-.post-box-comments
+.collect-box-comments
   height 48px
   overflow hidden
   margin-top 6px
+  text-align right
   p
-    line-height 60px
-    text-align right
+    line-height 48px
 
-.post-title
+.collect-title
   height 24px
 
-.post-info
+.collect-info
   height 28px
   p
     line-height 28px

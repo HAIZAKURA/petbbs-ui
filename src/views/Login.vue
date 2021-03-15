@@ -84,7 +84,7 @@ export default {
     }
   },
   created() {
-    document.title = '登录'
+    document.title = '登录 - ' + this.$root.site_info.site_title
   },
   methods: {
     submitForm(formName) {

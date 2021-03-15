@@ -20,16 +20,10 @@
           <div class="post-info">
             <p>
               <span>
-                <router-link style="font-weight: 600;color:#606266" :to="{ path: '/' }">{{ user.alias }}</router-link>
+                <router-link style="font-weight: 600;color:#606266" :to="{ name: 'User', params: { id: postInfo.userId } }">{{ user.alias }}</router-link>
               </span>
               <span style="color: #C0C4CC">  •  </span>
               <span>{{ dayjs(postInfo.createTime).calendar() }}</span>
-              <span v-for="(tag, index) in postInfo.tags" :key="index">
-                <span style="color: #C0C4CC">  •  </span>
-                <el-tag type="info" size="mini">
-                  <router-link style="color:#606266" :to="{ name: 'TagPostList', params: { id: tag.id }, query: { name: tag.name }}"><i class="fas fa-tag"></i>&nbsp;{{ tag.name }}</router-link>
-                </el-tag>
-              </span>
             </p>
           </div>
         </div>

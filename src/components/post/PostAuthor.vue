@@ -10,25 +10,25 @@
             <img :src="user.avatar + '?imageView2/1/w/100/h/100/format/webp/q/80'" :alt="user.alias" style="border-radius: 50%; height: 80px" />
           </div>
           <div class="column has-text-left user-name">
-            <router-link :to="{ path: `/member/${user.username}/home` }">
+            <router-link :to="{ name: 'User', params: { id: user.id } }">
               <p class="alias">{{ user.alias }}</p>
               <p class="is-size-10 has-text-grey">{{ '@' + user.username }}</p>
             </router-link>
           </div>
         </div>
         <div class="columns has-text-centered">
-          <div class="column is-one-third">
+          <div class="column is-half">
             <code>{{ user.postCount }}</code>
             <p>话题</p>
           </div>
-          <div class="column is-one-third">
+          <div class="column is-half">
             <code>{{ user.sections }}</code>
             <p>专栏</p>
           </div>
-          <div class="column is-one-third">
-            <code>{{ user.followerCount }}</code>
-            <p>粉丝</p>
-          </div>
+<!--          <div class="column is-one-third">-->
+<!--            <code>{{ user.followerCount }}</code>-->
+<!--            <p>粉丝</p>-->
+<!--          </div>-->
         </div>
 <!--        <div>-->
 <!--          <button-->

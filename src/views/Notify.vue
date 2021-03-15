@@ -4,7 +4,7 @@
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane label="未读通知" name="new">
           <el-card shadow="never" v-for="(item, key) in newNotifyList" :key="key">
-            <router-link v-if="item.remark != null || item.remark !== ''" :to="{ name: 'Post', params: { id: item.remark } }">
+            <router-link v-if="item.remark != null || item.remark !== ''" :to="{ path: item.remark }">
               <span>{{ item.content }}</span>
             </router-link>
             <router-link v-else>
@@ -19,7 +19,7 @@
 
         <el-tab-pane label="所有通知" name="all">
           <el-card shadow="never" v-for="(item, key) in allNotifyList" :key="key">
-            <router-link v-if="item.remark != null || item.remark !== ''" :to="{ name: 'Post', params: { id: item.remark } }">
+            <router-link v-if="item.remark != null || item.remark !== ''" :to="{ path: item.remark }">
               <span>{{ item.content }}</span>
             </router-link>
             <router-link v-else>
@@ -46,6 +46,7 @@ export default {
   },
   created() {
     this.fetchNewNotifyList()
+    document.title = '通知中心 - ' + this.$root.site_info.site_title
   },
   methods: {
     fetchNewNotifyList() {

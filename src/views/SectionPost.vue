@@ -94,6 +94,7 @@ export default {
   created() {
     this.fetchSection()
     this.getList()
+    document.title = '专栏话题 - ' + this.$root.site_info.site_title
   },
   methods: {
     async fetchSection() {

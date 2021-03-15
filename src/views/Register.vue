@@ -128,7 +128,7 @@ export default {
     }
   },
   created() {
-    document.title = '新用户入驻'
+    document.title = '新用户入驻 - ' + this.$root.site_info.site_title
   },
   methods: {
     submitForm(formName) {

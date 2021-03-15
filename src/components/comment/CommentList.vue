@@ -44,7 +44,7 @@
               <el-col :span="21">
                 <div class="comment-box-info">
                   <span class="comment-author">
-                    <router-link :to="{ path: '/' }" style="font-weight: 600">{{ item.alias }}</router-link>
+                    <router-link :to="{ name: 'User', params: { id: item.userId } }" style="font-weight: 600">{{ item.alias }}</router-link>
                   </span>
                   <span class="comment-date has-text-grey"><span class="mx-2"></span>{{ dayjs(item.createTime).format('YYYY/MM/DD HH:MM:ss') }}</span>
                 </div>
@@ -107,7 +107,7 @@
 import Pagination from '@/components/layout/Pagination'
 
 import { getCommentList } from '@/api/comment'
-import { addComment } from '@/api/comment'
+import { addComment, addCommentPhoto } from '@/api/comment'
 
 export default {
   name: "CommentList",
@@ -118,6 +118,9 @@ export default {
     postId: {
       required: true,
       type: String
+    },
+    type: {
+      required: true
     }
   },
   data() {
@@ -171,17 +174,31 @@ export default {
       }
       this.ruleForm.quoteId = this.quote.id
       this.ruleForm.postId = this.postId
-      addComment(this.ruleForm).then(() => {
-        this.$message({
-          message: '评论成功',
-          type: 'success'
+      if (this.type === 'post') {
+        addComment(this.ruleForm).then(() => {
+          this.$message({
+            message: '评论成功',
+            type: 'success'
+          })
+          this.fetchCommentList()
+          this.ruleForm.content = ''
+          this.ruleForm.quoteId = ''
+          this.quote.id = ''
+          this.quote.content = ''
         })
-        this.fetchCommentList()
-        this.ruleForm.content = ''
-        this.ruleForm.quoteId = ''
-        this.quote.id = ''
-        this.quote.content = ''
-      })
+      } else if (this.type === 'photo') {
+        addCommentPhoto(this.ruleForm).then(() => {
+          this.$message({
+            message: '评论成功',
+            type: 'success'
+          })
+          this.fetchCommentList()
+          this.ruleForm.content = ''
+          this.ruleForm.quoteId = ''
+          this.quote.id = ''
+          this.quote.content = ''
+        })
+      }
     }
   }
 }

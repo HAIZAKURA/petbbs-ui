@@ -33,7 +33,7 @@ module.exports = {
       .set('views', resolve('views'))
       .set('assets', resolve('assets'))
     config.plugin('html').tap(args => {
-      args[0].title = 'System'
+      args[0].title = 'Loading...'
       return args
     })
   }

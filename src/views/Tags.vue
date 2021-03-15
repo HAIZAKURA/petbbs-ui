@@ -28,6 +28,7 @@ export default {
   },
   created() {
     this.fetchTagList()
+    document.title = '所有标签 - ' + this.$root.site_info.site_title
   },
   methods: {
     async fetchTagList() {

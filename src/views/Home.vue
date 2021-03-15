@@ -22,12 +22,18 @@
 <script>
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import { getSiteInfo } from '@/api/config'
 
 export default {
   name: "Home",
   components: {
     Header,
     Footer
+  },
+  created() {
+    getSiteInfo().then(data => {
+      this.$root.site_info = data.data
+    })
   }
 }
 </script>

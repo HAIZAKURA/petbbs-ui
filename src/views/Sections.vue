@@ -60,6 +60,7 @@ export default {
   },
   created() {
     this.fetchSectionList()
+    document.title = '优质专栏 - ' + this.$root.site_info.site_title
   },
   methods: {
     async fetchSectionList() {

@@ -104,6 +104,7 @@
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 import { getNewNotify } from '@/api/notify'
+// import { getSiteInfo } from '@/api/config'
 
 export default {
   name: "Header",
@@ -115,6 +116,11 @@ export default {
   },
   computed: {
     ...mapGetters(['token', 'user'])
+  },
+  created() {
+    // getSiteInfo().then(data => {
+    //   this.$root.site_info = data.data
+    // })
   },
   mounted() {
     if (this.token != null && this.token !== '') {
@@ -140,9 +146,13 @@ export default {
           })
     },
     async fetchNewNotify() {
-      getNewNotify().then((data) => {
-        this.newNotifyNum = data.data.length
-      })
+      getNewNotify()
+          .then((data) => {
+            this.newNotifyNum = data.data.length
+          })
+          .catch(() => {
+            this.$router.push({ name: 'Login' })
+          })
     },
     gotoHome() {
       this.$router.push({ path: '/' })

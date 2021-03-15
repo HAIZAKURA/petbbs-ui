@@ -52,6 +52,7 @@ export default {
     if (this.$route.query.keyword != null || this.$route.query.keyword !== '') {
       this.fetchSearch(this.$route.query.keyword)
     }
+    document.title = '搜索 - ' + this.$root.site_info.site_title
   },
   methods: {
     async fetchSearch(keyword) {

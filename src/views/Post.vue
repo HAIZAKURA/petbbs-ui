@@ -32,11 +32,16 @@
               </p>
             </div>
 
-            <div v-if="(token && user.id === postUser.id) || (user.roleId === 1 || user.roleId === 2)" class="level-right">
-              <router-link class="level-item" :to="{ path: '/', params: { id: post.id }}">
+            <div v-if="token != null && token !== ''" class="level-right">
+              <a class="level-item">
+                <span class="tag is-info" @click="handleCollect(post.id)">收藏</span>
+              </a>
+
+              <router-link v-if="(user.id === postUser.id) || (user.roleId === 1 || user.roleId === 2)" class="level-item" :to="{ path: '/', params: { id: post.id }}">
                 <span class="tag is-primary">编辑</span>
               </router-link>
-              <a class="level-item">
+
+              <a v-if="(user.id === postUser.id) || (user.roleId === 1 || user.roleId === 2)" class="level-item">
                 <span class="tag is-danger" @click="handleDelete(post.id)">删除</span>
               </a>
             </div>
@@ -44,7 +49,7 @@
         </div>
       </el-card>
 
-      <CommentList :post-id="$route.params.id"></CommentList>
+      <CommentList :post-id="$route.params.id" :type="type"></CommentList>
     </div>
     <div class="column is-one-quarter">
       <PostAuthor v-if="flag" :user="postUser"></PostAuthor>
@@ -57,6 +62,7 @@ import PostAuthor from '@/components/post/PostAuthor'
 import CommentList from '@/components/comment/CommentList'
 
 import { getPost, delPost, delPostByAdmin } from '@/api/post'
+import { putCollect } from '@/api/collect'
 import { mapGetters } from 'vuex'
 
 import Vditor from 'vditor'
@@ -75,7 +81,8 @@ export default {
         content: ''
       },
       tags: [],
-      postUser: {}
+      postUser: {},
+      type: 'post'
     }
   },
   computed: {
@@ -93,7 +100,7 @@ export default {
     async fetchPost() {
       getPost(this.$route.params.id).then((res) => {
         let { data } = res;
-        document.title = data.post.title
+        document.title = data.post.title + ' - ' + this.$root.site_info.site_title
         this.post = data.post
         this.tags = data.tags
         this.postUser = data.user
@@ -128,6 +135,15 @@ export default {
               })
         }
       }
+    },
+    handleCollect(postId) {
+      putCollect(postId).then((res) => {
+        this.$message({
+          message: res.message,
+          type: 'success',
+          duration: 1000
+        })
+      })
     }
   }
 }

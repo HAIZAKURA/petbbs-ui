@@ -5,6 +5,7 @@
         <div slot="header" class="clearfix">
           <span>✍️<span class="mx-1"></span>发表新话题</span>
         </div>
+
         <div>
           <el-form
               ref="ruleForm"
@@ -27,14 +28,14 @@
               <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
 
               <el-button @click="resetForm('ruleForm')">重置</el-button>
-              <el-button @click="test">123</el-button>
+<!--              <el-button @click="test">123</el-button>-->
             </el-form-item>
           </el-form>
         </div>
       </el-card>
     </div>
-    <div class="column is-one-quarter">
 
+    <div class="column is-one-quarter">
       <el-card class="box-card">
         <div slot="header">🏷️<span class="mx-1"></span>话题标签</div>
         <div>
@@ -99,6 +100,9 @@ export default {
         ]
       }
     }
+  },
+  created() {
+    document.title = '发表话题 - ' + this.$root.site_info.site_title
   },
   mounted() {
     this.contentEditor = new Vditor('vditor', {
@@ -200,6 +204,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
 
+.clearfix:after {
+  clear: both
+}
 </style>

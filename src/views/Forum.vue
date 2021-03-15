@@ -25,7 +25,7 @@ import Panel from '@/components/layout/Panel'
 import PostList from '@/components/post/PostList'
 import CardBar from '@/components/layout/CardBar'
 
-import { getSiteInfo } from '@/api/config'
+// import { getSiteInfo } from '@/api/config'
 import { activeUser } from '@/api/user'
 import { getBillboard } from '@/api/billboard'
 
@@ -46,12 +46,17 @@ export default {
     }
   },
   created() {
-    getSiteInfo().then(data => {
-      this.$root.site_info = data.data
-      document.title = data.data.site_title
-    })
+    // getSiteInfo().then(data => {
+    //   this.$root.site_info = data.data
+    //   document.title = data.data.site_title
+    // })
     this.handleActive()
     this.fetchBillboard()
+  },
+  mounted() {
+    setTimeout(() => {
+      document.title = this.$root.site_info.site_title
+    }, 100)
   },
   methods: {
     handleActive() {

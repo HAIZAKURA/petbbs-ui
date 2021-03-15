@@ -71,6 +71,7 @@ export default {
   },
   created() {
     this.getList()
+    document.title = this.$route.query.name + ' - ' + this.$root.site_info.site_title
   },
   methods: {
     async getList() {

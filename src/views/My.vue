@@ -109,6 +109,9 @@
               <p>暂时没有相关话题哦～</p>
             </div>
           </el-tab-pane>
+
+          <el-tab-pane label="📷 我的照片" name="photo">
+          </el-tab-pane>
         </el-tabs>
 
         <div class="pagination-div">

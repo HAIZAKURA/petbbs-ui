@@ -87,3 +87,15 @@ export function getUsersByAdmin() {
   })
 }
 
+// 修改密码
+export function updatePass(oldPass, newPass) {
+  return request({
+    url: '/api/password',
+    method: 'put',
+    params: {
+      old: oldPass,
+      new: newPass
+    }
+  })
+}
+

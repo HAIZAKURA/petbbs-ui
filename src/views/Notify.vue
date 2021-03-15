@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card>
-      <el-tabs v-model="activeTab" @tab-click="handleClick">
+      <el-tabs v-model="activeTab" :stretch="true" @tab-click="handleClick">
         <el-tab-pane label="未读通知" name="new">
           <el-card shadow="never" v-for="(item, key) in newNotifyList" :key="key">
             <router-link v-if="item.remark != null || item.remark !== ''" :to="{ path: item.remark }">

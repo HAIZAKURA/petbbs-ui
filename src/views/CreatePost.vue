@@ -59,10 +59,18 @@
 
       <el-card class="box-card">
         <div slot="header">💡<span class="mx-1"></span>发帖提示</div>
+        <p>1⃣️<span class="mx-1"></span>请在标题中描述内容要点。</p>
+        <br />
+        <p>2⃣️<span class="mx-1"></span>可以在正文中为你要发布的话题添加更多细节。正文采用<i class="fab fa-markdown"></i><a href="https://docs.github.com/en/github/writing-on-github" target="_blank">Markdown</a> 文本标记语法。</p>
+        <br />
+        <p>3⃣️<span class="mx-1"></span>在最后，请为你的话题选择标签，至多3个。恰当的归类会让你发布的信息更加有用。</p>
       </el-card>
 
       <el-card class="box-card">
         <div slot="header">📜<span class="mx-1"></span>社区原则</div>
+        <p>❗️<span class="mx-1"></span>请不要在 V2EX 发布任何盗版下载链接，包括软件、音乐、电影等等，我们尊重原创。</p>
+        <br />
+        <p>❗️<span class="mx-1"></span>保持对陌生人的友善。用知识去帮助别人。</p>
       </el-card>
     </div>
   </div>

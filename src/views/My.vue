@@ -18,14 +18,14 @@
             <p class="date has-text-grey">加入于<span class="mx-1"></span>{{ dayjs(user.createTime).format('YYYY年MM月DD日 HH:MM:ss') }}</p>
             <div class="sometag">
               <el-tag size="mini" v-if="user.active">已激活</el-tag>
-              <el-tag size="mini" type="danger" v-else>未激活</el-tag>
+              <el-tag size="mini" type="danger" v-else><router-link :to="{ name: 'ReActive' }">未激活</router-link></el-tag>
               <span class="mx-1"></span>
               <el-tag size="mini" v-if="!user.status" type="danger">已封禁</el-tag>
             </div>
           </el-col>
 
           <el-col :span="3" style="text-align: right">
-            <router-link :to="{ path: '/profile' }">
+            <router-link :to="{ name: 'Profile' }">
               <el-button size="mini">修改资料</el-button>
             </router-link>
           </el-col>

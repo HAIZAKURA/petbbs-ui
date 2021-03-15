@@ -37,7 +37,11 @@
                 <span class="tag is-info" @click="handleCollect(post.id)">收藏</span>
               </a>
 
-              <router-link v-if="(user.id === postUser.id) || (user.roleId === 1 || user.roleId === 2)" class="level-item" :to="{ path: '/', params: { id: post.id }}">
+              <router-link
+                  v-if="(user.id === postUser.id) || (user.roleId === 1 || user.roleId === 2)"
+                  class="level-item"
+                  :to="{ name: 'EditPost', params: { id: post.id }}"
+              >
                 <span class="tag is-primary">编辑</span>
               </router-link>
 

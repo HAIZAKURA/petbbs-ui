@@ -6,8 +6,8 @@
           <el-card :body-style="{ padding: '0' }" class="waterfall-card">
             <div class="waterfall-card-header">
               <el-row :gutter="20">
-                <el-col :span="6" style="text-align: center">
-                  <img style="height: 2em" :src="item.avatar + '?imageView2/1/w/100/h/100/format/webp/q/80'" :alt="item.alias" />
+                <el-col :span="6" style="text-align: left">
+                  <img style="height: 2em;border-radius: 50%" :src="item.avatar + '?imageView2/1/w/100/h/100/format/webp/q/80'" :alt="item.alias" />
                 </el-col>
                 <el-col :span="18" class="waterfall-card-header-alias">
                   <router-link :to="{ name: 'User', params: { id: item.userId } }">{{ item.alias }}</router-link>
@@ -16,19 +16,19 @@
             </div>
 
 <!--            <img style="display: block; padding-top: 0" :src="item.photo + '?imageView2/0/format/webp/q/80'" :alt="item.content" />-->
+            <div class="block" style="text-align: center">
+              <el-image :src="item.photo + '?imageView2/0/format/webp/q/80'" :alt="item.content" :preview-src-list="srcList">
+                <div slot="error" class="image-slot" style="height: 100px;text-align: center;line-height: 100px;font-size: 1.5em;color: #909399">
+                  <span>加载失败</span>
+                </div>
+              </el-image>
+            </div>
+
             <router-link :to="{ name: 'Photo', params: { id: item.id } }">
-              <div class="block" style="text-align: center">
-                <el-image :src="item.photo + '?imageView2/0/format/webp/q/80'" :alt="item.content">
-                  <div slot="error" class="image-slot" style="height: 100px;text-align: center;line-height: 100px;font-size: 1.5em;color: #909399">
-                    <span>加载失败</span>
-                  </div>
-                </el-image>
+              <div class="waterfall-card-content">
+                <span>{{ item.content }}</span>
               </div>
             </router-link>
-
-            <div class="waterfall-card-content">
-              <span>{{ item.content }}</span>
-            </div>
 
             <div class="waterfall-card-footer">
               <el-row :gutter="10" class="has-text-grey">
@@ -87,6 +87,7 @@ export default {
   },
   data() {
     return {
+      srcList: [],
       photoList: [],
       page: {
         current: 1,
@@ -118,6 +119,10 @@ export default {
         this.page.total = data.total
         this.photoList = data.records
         this.loading = false
+        this.srcList = []
+        this.photoList.forEach((item) => {
+          this.srcList.push(item.photo + '?imageView2/0/format/webp/q/80')
+        })
       })
     }
   }

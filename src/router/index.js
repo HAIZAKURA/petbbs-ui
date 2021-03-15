@@ -112,6 +112,11 @@ const routes = [
         path: '/new/photo',
         name: 'CreatePhoto',
         component: () => import('../views/CreatePhoto')
+      },
+      {
+        path: '/edit/:id',
+        name: 'EditPost',
+        component: () => import('../views/Edit')
       }
     ]
   },

@@ -50,11 +50,10 @@
 
     <div class="column is-one-quarter">
       <el-card class="box-card">
-        <div slot="header">💡<span class="mx-1"></span>发帖提示</div>
-      </el-card>
-
-      <el-card class="box-card">
         <div slot="header">📜<span class="mx-1"></span>社区原则</div>
+        <p>❗️<span class="mx-1"></span>请不要在 V2EX 发布任何盗版下载链接，包括软件、音乐、电影等等，我们尊重原创。</p>
+        <br />
+        <p>❗️<span class="mx-1"></span>保持对陌生人的友善。用知识去帮助别人。</p>
       </el-card>
     </div>
   </div>

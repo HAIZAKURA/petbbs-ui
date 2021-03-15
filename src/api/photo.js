@@ -20,6 +20,18 @@ export function getPhoto(id) {
   })
 }
 
+export function getPhotoListByUser(userId, pageNum, pageSize) {
+  return request({
+    url: '/api/user/photo',
+    method: 'get',
+    params: {
+      userId: userId,
+      pageNum: pageNum,
+      pageSize: pageSize
+    }
+  })
+}
+
 // 创建照片
 export function createPhoto(CreatePhotoDTO) {
   return request({

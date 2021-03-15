@@ -83,6 +83,12 @@
           > 🧘 个人中心</b-navbar-item>
           <hr class="dropdown-divider" />
           <b-navbar-item
+              v-if="!user.active"
+              tag="router-link"
+              :to="{ name: 'ReActive' }"
+          > 🔑 激活账号</b-navbar-item>
+          <hr v-if="!user.active" class="dropdown-divider" />
+          <b-navbar-item
               tag="a"
               @click="logout"
           > 👋 注销登录</b-navbar-item>
@@ -121,6 +127,7 @@ export default {
     // getSiteInfo().then(data => {
     //   this.$root.site_info = data.data
     // })
+    // console.log(this.user)
   },
   mounted() {
     if (this.token != null && this.token !== '') {

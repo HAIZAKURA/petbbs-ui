@@ -8,7 +8,7 @@
         <p>{{ hitokoto.hitokoto }}</p>
       </div>
       <div class="has-text-right mt-5 block">
-        <p>FROM<span class="mx-1"></span>{{ hitokoto.from }}</p>
+        <p>—<span class="mx-1"></span>{{ hitokoto.from }}</p>
       </div>
     </div>
   </el-card>

@@ -111,6 +111,38 @@
           </el-tab-pane>
 
           <el-tab-pane label="📷 我的照片" name="photo">
+            <Waterfall v-if="isShow" :options="options">
+              <WaterfallItem v-for="(item, key) in photoList" :key="key" class="waterfallitem">
+                <el-card :body-style="{ padding: '0' }" class="waterfall-card">
+                  <div class="block" style="text-align: center">
+                    <el-image :src="item.photo + '?imageView2/0/format/webp/q/80'" :alt="item.content">
+                      <div slot="error" class="image-slot" style="height: 100px;text-align: center;line-height: 100px;font-size: 1.5em;color: #909399">
+                        <span>加载失败</span>
+                      </div>
+                    </el-image>
+                  </div>
+
+                  <router-link :to="{ name: 'Photo', params: { id: item.id } }">
+                    <div class="waterfall-card-content">
+                      <span>{{ item.content }}</span>
+                    </div>
+                  </router-link>
+
+                  <div class="waterfall-card-footer">
+                    <el-row :gutter="10" class="has-text-grey">
+                      <el-col :span="8" style="text-align: left">
+                        <span><i class="fas fa-comment"></i>&nbsp;{{ item.comments }}</span>
+                        <span class="mx-1"></span>
+                        <span><i class="fas fa-eye"></i>&nbsp;{{ item.view }}</span>
+                      </el-col>
+                      <el-col :span="16" style="text-align: right">
+                        <span>{{ dayjs(item.createTime).calendar() }}</span>
+                      </el-col>
+                    </el-row>
+                  </div>
+                </el-card>
+              </WaterfallItem>
+            </Waterfall>
           </el-tab-pane>
         </el-tabs>
 
@@ -138,28 +170,35 @@
 import { mapGetters } from 'vuex'
 import { getUser } from '@/api/user'
 import { getCollectList, delCollect } from '@/api/collect'
+import { getPhotoListByUser } from '@/api/photo'
 import UserPostBox from '@/components/post/UserPostBox'
 import Pagination from '@/components/layout/Pagination'
 import CardBar from '@/components/layout/CardBar'
+import { Waterfall, WaterfallItem } from 'vue2-waterfall'
 
 export default {
   name: "My",
   components: {
     UserPostBox,
     Pagination,
-    CardBar
+    CardBar,
+    Waterfall,
+    WaterfallItem
   },
   data() {
     return {
       postList: [],
       collectList: [],
+      photoList: [],
       userInfo: '',
       page: {
         current: 1,
         size: 10,
         total: 0
       },
-      activeTab: 'post'
+      options: {},
+      activeTab: 'post',
+      isShow: true
     }
   },
   computed: {
@@ -185,7 +224,7 @@ export default {
           this.page.total = data.posts.total
           this.userInfo = data.user
         })
-      } else {
+      } else if (tabName === 'collect') {
         getCollectList(this.page.current, this.page.size).then((res) => {
           let { data } = res
           this.page.current = data.current
@@ -193,6 +232,15 @@ export default {
           this.page.total = data.total
           this.collectList = data.records
         })
+      } else if (tabName === 'photo') {
+        getPhotoListByUser(this.user.id, this.page.current, this.page.size)
+            .then((res) => {
+              let { data } = res
+              this.page.current = data.current
+              this.page.size = data.size
+              this.page.total = data.total
+              this.photoList = data.records
+            })
       }
     },
     handleClick(tab) {
@@ -298,4 +346,21 @@ export default {
   font-size 16px
   color #606266
   font-weight 500
+
+.waterfallitem
+  width 230px
+  margin 0.5em
+
+.waterfall-card
+  margin 0
+  border-radius 10px
+  position relative
+
+.waterfall-card-content
+  padding 0 1em 0.5em 1em
+
+.waterfall-card-footer
+  font-size 0.25em
+  padding 0 2em
+  border-top 1px solid #DCDFE6
 </style>

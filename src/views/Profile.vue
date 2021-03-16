@@ -9,6 +9,10 @@
                 ref="userInfo"
                 label-width="60px"
             >
+              <el-form-item label="ID" prop="id">
+                <el-input v-model="userInfo.id" :disabled="true"></el-input>
+              </el-form-item>
+
               <el-form-item label="账号" prop="username">
                 <el-input v-model="userInfo.username" :disabled="true"></el-input>
               </el-form-item>
@@ -58,7 +62,7 @@
               </div>
 
               <div style="text-align: center">
-                <img style="max-width: 200px" v-show="!noPhoto" :src="userInfo.avatar" />
+                <img style="max-width: 200px" v-show="!noPhoto" :src="userInfo.avatar + '?imageView2/1/w/200/h/200/format/webp/q/80'" />
               </div>
             </el-card>
 

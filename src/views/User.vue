@@ -27,22 +27,61 @@
       </el-card>
 
       <el-card>
-        <div slot="header">
-          <span>📜<span class="mx-1"></span>他的话题</span>
-        </div>
-
-        <div>
-          <div v-if="postList.length > 0">
-            <div v-for="(item, key) in postList" :key="key">
-              <transition name="el-fade-in">
-                <UserPostBox :post-info="item" :user="userInfo"></UserPostBox>
-              </transition>
+        <el-tabs v-model="activeTab">
+          <el-tab-pane label="📜 他的话题" name="post">
+            <div>
+              <div v-if="postList.length > 0">
+                <div v-for="(item, key) in postList" :key="key">
+                  <transition name="el-fade-in">
+                    <UserPostBox :post-info="item" :user="userInfo"></UserPostBox>
+                  </transition>
+                </div>
+              </div>
+              <div v-else class="nocontent">
+                <p>暂时没有相关话题哦～</p>
+              </div>
             </div>
-          </div>
-          <div v-else class="nocontent">
-            <p>暂时没有相关话题哦～</p>
-          </div>
-        </div>
+          </el-tab-pane>
+
+          <el-tab-pane label="📷 他的照片" name="photo">
+            <Waterfall v-if="photoList > 0" :options="options">
+              <WaterfallItem v-for="(item, key) in photoList" :key="key" class="waterfallitem">
+                <el-card :body-style="{ padding: '0' }" class="waterfall-card">
+                  <div class="block" style="text-align: center">
+                    <el-image :src="item.photo + '?imageView2/0/format/webp/q/80'" :alt="item.content">
+                      <div slot="error" class="image-slot" style="height: 100px;text-align: center;line-height: 100px;font-size: 1.5em;color: #909399">
+                        <span>加载失败</span>
+                      </div>
+                    </el-image>
+                  </div>
+
+                  <router-link :to="{ name: 'Photo', params: { id: item.id } }">
+                    <div class="waterfall-card-content">
+                      <span>{{ item.content }}</span>
+                    </div>
+                  </router-link>
+
+                  <div class="waterfall-card-footer">
+                    <el-row :gutter="10" class="has-text-grey">
+                      <el-col :span="8" style="text-align: left">
+                        <span><i class="fas fa-comment"></i>&nbsp;{{ item.comments }}</span>
+                        <span class="mx-1"></span>
+                        <span><i class="fas fa-eye"></i>&nbsp;{{ item.view }}</span>
+                      </el-col>
+                      <el-col :span="16" style="text-align: right">
+                        <span>{{ dayjs(item.createTime).calendar() }}</span>
+                      </el-col>
+                    </el-row>
+                  </div>
+                </el-card>
+              </WaterfallItem>
+            </Waterfall>
+
+            <div v-else class="nocontent">
+              <p>暂时没有相关照片哦～</p>
+            </div>
+          </el-tab-pane>
+        </el-tabs>
 
         <div class="pagination-div">
           <p>
@@ -51,7 +90,7 @@
                 :total="page.total"
                 :page.sync="page.current"
                 :limit.sync="page.size"
-                @pagination="fetchUser"
+                @pagination="fetchList"
             ></Pagination>
           </p>
         </div>
@@ -66,16 +105,20 @@
 
 <script>
 import { getUserByNameOrId } from '@/api/user'
+import { getPhotoListByUser } from '@/api/photo'
 import CardBar from '@/components/layout/CardBar'
 import UserPostBox from '@/components/post/UserPostBox'
 import Pagination from '@/components/layout/Pagination'
+import { Waterfall, WaterfallItem } from 'vue2-waterfall'
 
 export default {
   name: "User",
   components: {
     CardBar,
     UserPostBox,
-    Pagination
+    Pagination,
+    Waterfall,
+    WaterfallItem
   },
   data() {
     return {
@@ -85,22 +128,40 @@ export default {
         total: 0
       },
       userInfo: '',
-      postList: []
+      postList: [],
+      photoList: [],
+      options: {},
+      activeTab: 'post',
+      isShow: true
     }
   },
   created() {
-    this.fetchUser()
+    this.fetchList(this.activeTab)
   },
   methods: {
-    async fetchUser() {
-      getUserByNameOrId(this.$route.params.id, this.page.current, this.page.size).then((res) => {
-        let { data } = res
-        this.page.current = data.posts.current
-        this.page.size = data.posts.size
-        this.page.total = data.posts.total
-        this.postList = data.posts.records
-        this.userInfo = data.user
-      })
+    async fetchList(tabName) {
+      if (tabName === 'post') {
+        getUserByNameOrId(this.$route.params.id, this.page.current, this.page.size).then((res) => {
+          let { data } = res
+          this.page.current = data.posts.current
+          this.page.size = data.posts.size
+          this.page.total = data.posts.total
+          this.postList = data.posts.records
+          this.userInfo = data.user
+        })
+      } else if (tabName === 'photo') {
+        getPhotoListByUser(this.$route.params.id, this.page.current, this.page.size)
+            .then((res) => {
+              let { data } = res
+              this.page.current = data.current
+              this.page.size = data.size
+              this.page.total = data.total
+              this.photoList = data.records
+            })
+      }
+    },
+    handleClick(tab) {
+      this.fetchList(tab.name)
     }
   }
 }
@@ -152,4 +213,21 @@ export default {
 .sometag
   line-height 2em
   font-size 1em
+
+.waterfallitem
+  width 230px
+  margin 0.5em
+
+.waterfall-card
+  margin 0
+  border-radius 10px
+  position relative
+
+.waterfall-card-content
+  padding 0 1em 0.5em 1em
+
+.waterfall-card-footer
+  font-size 0.25em
+  padding 0 2em
+  border-top 1px solid #DCDFE6
 </style>

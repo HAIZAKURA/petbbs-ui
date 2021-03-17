@@ -58,6 +58,27 @@
       </el-card>
 
       <el-card class="box-card">
+        <div slot="header">📷<span class="mx-1"></span>添加图片</div>
+        <div style="text-align: center">
+          <div>
+            <el-upload
+                action=""
+                accept="image/*"
+                :before-upload="upload"
+                v-loading="loading"
+            >
+              <el-button size="small" type="primary">点击上传</el-button>
+              <div slot="tip" class="el-upload__tip">
+                <span>只能上传图片文件，且不超过20MB</span>
+                <br />
+                <span>上传后直接在文中对应位置粘贴即可</span>
+              </div>
+            </el-upload>
+          </div>
+        </div>
+      </el-card>
+
+      <el-card class="box-card">
         <div slot="header">💡<span class="mx-1"></span>发帖提示</div>
         <p>1⃣️<span class="mx-1"></span>请在标题中描述内容要点。</p>
         <br />
@@ -73,6 +94,19 @@
         <p>❗️<span class="mx-1"></span>保持对陌生人的友善。用知识去帮助别人。</p>
       </el-card>
     </div>
+
+    <el-dialog
+        title="提示"
+        :visible.sync="dialogVisible"
+        width="30%"
+    >
+      <div style="text-align: center">
+        <img :src="img" width="200px" />
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="doCopy">复 制</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -82,11 +116,16 @@ import 'vditor/dist/index.css'
 
 import { addPost } from '@/api/post'
 import { getTagList } from '@/api/tags'
+import { uploadUtil } from '@/api/upload'
 
 export default {
   name: "CreatePost",
   data() {
     return {
+      dialogVisible: false,
+      loading: false,
+      img: '',
+      md_img: '',
       contentEditor: '',
       tagList: [],
       ruleForm: {
@@ -136,14 +175,7 @@ export default {
       cache: {
         enable: false
       },
-      mode: 'sv',
-      upload: {
-        // 上传字段名称
-        fieldName: 'my-file',
-        // 上传 url
-        url: 'http://127.0.0.1:10000/upload/file',
-        accept: 'image/*'
-      }
+      mode: 'sv'
     })
     this.fetchTagList()
   },
@@ -207,6 +239,45 @@ export default {
     },
     test() {
       console.log(this.ruleForm.tags)
+    },
+    upload(file) {
+      this.loading = true
+      let fd = new FormData()
+      fd.append('file', file)
+      fd.append('type', 'image')
+      // console.log(fd)
+      uploadUtil(fd)
+          .then((res) => {
+            let { data } = res
+            this.img = data.url
+            this.md_img = '![](' + data.url + '?imageView2/0/format/webp/q/80)'
+            this.$message({
+              message: '上传成功',
+              type: 'success'
+            })
+            this.loading = false
+            this.dialogVisible = true
+            // console.log(res)
+          })
+          .catch(() => {
+            this.$message({
+              message: '上传失败',
+              type: 'error'
+            })
+            this.loading = false
+          })
+    },
+    doCopy() {
+      this.$copyText(this.md_img).then(() => {
+        // console.log('y')
+        this.md_img = ''
+        this.img = ''
+      }, () => {
+        // console.log('n')
+        this.md_img = ''
+        this.img = ''
+      })
+      this.dialogVisible = false
     }
   }
 }

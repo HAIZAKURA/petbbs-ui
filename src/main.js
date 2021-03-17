@@ -9,6 +9,8 @@ import 'buefy/dist/buefy.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+import VueClipboard from 'vue-clipboard2'
+
 import './permission'
 
 import './assets/app.css'
@@ -31,6 +33,8 @@ Vue.use(VueRouter)
 Vue.use(Buefy)
 
 Vue.use(ElementUI)
+
+Vue.use(VueClipboard)
 
 const dayjs = require('dayjs')
 

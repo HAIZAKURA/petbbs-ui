@@ -12,11 +12,11 @@
               :model="ruleForm"
               status-icon
               :rules="rules"
-              label-width="100px"
+              label-width="90px"
               class="demo-ruleForm"
           >
             <el-form-item label="账号" prop="name">
-              <el-input v-model="ruleForm.name" />
+              <el-input v-model="ruleForm.name" placeholder="请输入账号" />
             </el-form-item>
 
             <el-form-item label="密码" prop="pass">
@@ -24,19 +24,25 @@
                   v-model="ruleForm.pass"
                   type="password"
                   autocomplete="off"
+                  placeholder="请输入密码"
               />
             </el-form-item>
 
-            <el-form-item label="确认密码" prop="checkPass">
+            <el-form-item label="确认" prop="checkPass">
               <el-input
                   v-model="ruleForm.checkPass"
                   type="password"
                   autocomplete="off"
+                  placeholder="请再次输入密码"
               />
             </el-form-item>
 
             <el-form-item label="邮箱" prop="email">
-              <el-input v-model="ruleForm.email" autocomplete="off" />
+              <el-input v-model="ruleForm.email" autocomplete="off" placeholder="请输入邮箱" />
+            </el-form-item>
+
+            <el-form-item label="验证" prop="verify">
+              <Verify @success="successVerify" @error="errorVerify" :type="3" :show-button="false"></Verify>
             </el-form-item>
 
             <el-form-item>
@@ -52,9 +58,13 @@
 
 <script>
 import { userRegister } from '@/api/auth/auth'
+import Verify from 'vue2-verify'
 
 export default {
   name: "Register",
+  components: {
+    Verify
+  },
   data() {
     const validatePass = (rule, value, callback) => {
       if (value === '') {
@@ -66,7 +76,8 @@ export default {
       }
     }
     return {
-      redirect: undefined,
+      redirect: this.$route.query.to,
+      verify: false,
       loading: false,
       ruleForm: {
         name: '',
@@ -132,35 +143,46 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.loading = true;
-          userRegister(this.ruleForm)
-              .then((value) => {
-                const { code, message } = value;
-                if (code === 200) {
-                  this.$message({
-                    message: '账号注册成功，请在30分钟内前往邮箱激活账号',
-                    type: 'success'
-                  })
-                  setTimeout(() => {
-                    this.loading = false;
-                    this.$router.push({path: this.redirect || '/login'})
-                  })
-                } else {
-                  this.$message.error(message)
-                }
-              })
-              .catch(() => {
-                this.loading = false
-              })
-        } else {
-          return false;
-        }
-      })
+      if (this.verify) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.loading = true;
+            userRegister(this.ruleForm)
+                .then((value) => {
+                  const { code, message } = value;
+                  if (code === 200) {
+                    this.$message({
+                      message: '账号注册成功，请在30分钟内前往邮箱激活账号',
+                      type: 'success'
+                    })
+                    setTimeout(() => {
+                      this.loading = false;
+                      this.$router.push({path: this.redirect || '/login'})
+                    })
+                  } else {
+                    this.$message.error(message)
+                  }
+                })
+                .catch(() => {
+                  this.loading = false
+                })
+          } else {
+            return false;
+          }
+        })
+      } else {
+        window.alert("请完成验证")
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    successVerify() {
+      this.verify = true
+    },
+    errorVerify() {
+      this.verify = false
+      window.alert("验证失败")
     }
   }
 }

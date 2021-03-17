@@ -12,10 +12,10 @@
               status-icon
               :rules="rules"
               ref="ruleForm"
-              label-width="100px"
+              label-width="80px"
           >
             <el-form-item label="账号" prop="username">
-              <el-input v-model="ruleForm.username"></el-input>
+              <el-input v-model="ruleForm.username" placeholder="请输入账号"></el-input>
             </el-form-item>
 
             <el-form-item label="密码" prop="password">
@@ -23,7 +23,12 @@
                   type="password"
                   v-model="ruleForm.password"
                   autocomplete="off"
+                  placeholder="请输入密码"
               ></el-input>
+            </el-form-item>
+
+            <el-form-item label="验证" prop="verify">
+              <Verify @success="successVerify" @error="errorVerify" :type="3" :show-button="false"></Verify>
             </el-form-item>
 
             <el-form-item label="记住" prop="delivery">
@@ -31,7 +36,7 @@
             </el-form-item>
 
             <el-form-item>
-              <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+              <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
               <el-button @click="resetForm('ruleForm')">重置</el-button>
             </el-form-item>
           </el-form>
@@ -42,11 +47,17 @@
 </template>
 
 <script>
+import Verify from 'vue2-verify'
+
 export default {
   name: "Login",
+  components: {
+    Verify
+  },
   data() {
     return {
-      redirect: undefined,
+      redirect: this.$route.query.to,
+      verify: false,
       loading: false,
       ruleForm: {
         username: '',
@@ -88,31 +99,42 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.loading = true;
-          this.$store.dispatch('user/login', this.ruleForm)
-              .then(() => {
-                this.$message({
-                  message: '登录成功',
-                  type: 'success',
-                  duration: 2000
+      if (this.verify) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.loading = true;
+            this.$store.dispatch('user/login', this.ruleForm)
+                .then(() => {
+                  this.$message({
+                    message: '登录成功',
+                    type: 'success',
+                    duration: 2000
+                  })
+                  setTimeout(() => {
+                    this.loading = false;
+                    this.$router.push({ path: this.redirect || '/' })
+                  }, 0.1 * 1000)
                 })
-                setTimeout(() => {
+                .catch(() => {
                   this.loading = false;
-                  this.$router.push({ path: this.redirect || '/' })
-                }, 0.1 * 1000)
-              })
-              .catch(() => {
-                this.loading = false;
-              })
-        } else {
-          return false;
-        }
-      })
+                })
+          } else {
+            return false;
+          }
+        })
+      } else {
+        window.alert("请完成验证")
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    successVerify() {
+      this.verify = true
+    },
+    errorVerify() {
+      this.verify = false
+      window.alert("验证失败")
     }
   }
 }

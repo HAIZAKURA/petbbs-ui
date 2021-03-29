@@ -1,7 +1,7 @@
 <template>
-  <div id="dash">
+  <div id="user">
     <div class="title">
-      <span class="title-text">总&nbsp;览</span>
+      <span class="title-text">用&nbsp;户</span>
     </div>
     <el-divider></el-divider>
   </div>
@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "Dash"
+name: "User"
 }
 </script>
 

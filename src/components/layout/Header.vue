@@ -89,6 +89,12 @@
           > 🔑 激活账号</b-navbar-item>
           <hr v-if="!user.active" class="dropdown-divider" />
           <b-navbar-item
+              v-if="user.roleId === 1 || user.roleId === 2"
+              tag="router-link"
+              :to="{ path: '/admin' }"
+          > ⚙️ 系统管理</b-navbar-item>
+          <hr v-if="user.roleId === 1 || user.roleId === 2" class="dropdown-divider" />
+          <b-navbar-item
               tag="a"
               @click="logout"
           > 👋 注销登录</b-navbar-item>
@@ -130,7 +136,7 @@ export default {
     // console.log(this.user)
   },
   mounted() {
-    if (this.token != null && this.token !== '') {
+    if (this.token != null || this.token !== '') {
       setInterval(() => {
         if (this.token != null && this.token !== '') {
           this.fetchNewNotify()

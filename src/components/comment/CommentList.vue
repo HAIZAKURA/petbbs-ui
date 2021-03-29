@@ -2,7 +2,7 @@
   <div>
     <el-card>
       <div slot="header">
-        <span>🎙<span class="mx-1"></span>评论话题</span>
+        <span>🎙<span class="mx-1"></span>评论</span>
       </div>
 
       <el-card shadow="never" v-if="quote.id !== ''">

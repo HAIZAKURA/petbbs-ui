@@ -1,9 +1,60 @@
 <template>
   <div id="home">
     <el-container>
-      <el-aside class="aside"></el-aside>
+      <el-aside class="aside">
+        <el-menu
+            class="aside-menu"
+            background-color="#242327"
+            text-color="#fff"
+            active-text-color="#ffd04b"
+            default-active="/admin"
+            unique-opened
+            router
+        >
+          <div class="aside-logo">
+            <div class="blank10"></div>
+            <img src="../../assets/logo.png" />
+            <div class="blank20"></div>
+          </div>
+
+          <el-menu-item class="aside-menu-item" index="/admin">
+            <i class="el-icon-odometer"></i>
+            <span>&nbsp;总&nbsp;览</span>
+          </el-menu-item>
+
+          <el-menu-item class="aside-menu-item" index="/admin/user">
+            <i class="el-icon-user"></i>
+            <span>&nbsp;用&nbsp;户</span>
+          </el-menu-item>
+
+          <el-menu-item class="aside-menu-item" index="/admin/post">
+            <i class="el-icon-document"></i>
+            <span>&nbsp;话&nbsp;题</span>
+          </el-menu-item>
+
+          <el-menu-item class="aside-menu-item" index="/admin/photo">
+            <i class="el-icon-picture-outline"></i>
+            <span>&nbsp;照&nbsp;片</span>
+          </el-menu-item>
+
+          <el-menu-item class="aside-menu-item" index="/admin/config" v-if="user.roleId === 1">
+            <i class="el-icon-setting"></i>
+            <span>&nbsp;设&nbsp;置</span>
+          </el-menu-item>
+        </el-menu>
+      </el-aside>
+
       <el-container>
-        <el-header class="admin-header"></el-header>
+        <el-header class="admin-header">
+          <div class="header-tool">
+            <div class="header-tool-item">
+              <span class="header-user">{{ user.alias }}</span>
+              <el-button type="primary" size="medium" round @click="back">返回论坛</el-button>
+              <el-button type="danger" size="medium" round>登出</el-button>
+            </div>
+          </div>
+        </el-header>
+
         <el-main class="main-view">
           <router-view></router-view>
         </el-main>
@@ -21,12 +72,21 @@ export default {
     ...mapGetters(['token', 'user'])
   },
   created() {
-    if (this.user.roleId !== 1 || this.user.roleId !== 2) {
+    // console.log(this.user.roleId !== 1 && this.user.roleId !== 2)
+    if (this.user.roleId !== 1 && this.user.roleId !== 2) {
       this.$message({
         message: '权限不足',
         type: 'error',
         duration: 1000
       })
+      this.$router.push({ name: 'Login', query: { to: 'admin' } })
+    }
+  },
+  mounted() {
+    document.title = '控制面板 - ' + this.$root.site_info.site_title
+  },
+  methods: {
+    back() {
       this.$router.push({ path: '/' })
     }
   }

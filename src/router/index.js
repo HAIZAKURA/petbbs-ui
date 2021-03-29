@@ -127,8 +127,28 @@ const routes = [
     children: [
       {
         path: '/admin',
-        name: 'Dash',
+        name: 'AdminDash',
         component: () => import('../views/admin/Dash.vue')
+      },
+      {
+        path: '/admin/user',
+        name: 'AdminUser',
+        component: () => import('../views/admin/User.vue')
+      },
+      {
+        path: '/admin/post',
+        name: 'AdminPost',
+        component: () => import('../views/admin/Post.vue')
+      },
+      {
+        path: '/admin/photo',
+        name: 'AdminPhoto',
+        component: () => import('../views/admin/Photo.vue')
+      },
+      {
+        path: '/admin/config',
+        name: 'AdminConfig',
+        component: () => import('../views/admin/Config.vue')
       }
     ]
   }

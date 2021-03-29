@@ -1,7 +1,7 @@
 <template>
-  <div id="dash">
+  <div id="post">
     <div class="title">
-      <span class="title-text">总&nbsp;览</span>
+      <span class="title-text">话&nbsp;题</span>
     </div>
     <el-divider></el-divider>
   </div>
@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "Dash"
+name: "Post"
 }
 </script>
 

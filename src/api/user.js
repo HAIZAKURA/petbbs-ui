@@ -80,10 +80,14 @@ export function updateUserByAdmin(user) {
 }
 
 // 管理员获取所有用户
-export function getUsersByAdmin() {
+export function getUsersByAdmin(pageNum, pageSize) {
   return request({
     url: '/api/admin/user',
-    method: 'get'
+    method: 'get',
+    params: {
+      pageNum: pageNum,
+      pageSize: pageSize
+    }
   })
 }
 

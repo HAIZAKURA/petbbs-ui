@@ -1,15 +1,16 @@
 <template>
-  <div id="dash">
+  <div id="qiniu-config">
     <div class="title">
-      <span class="title-text">系&nbsp;统&nbsp;总&nbsp;览</span>
+      <span class="title-text">七&nbsp;牛&nbsp;云&nbsp;设&nbsp;置</span>
     </div>
+
     <el-divider></el-divider>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Dash"
+  name: "QiniuConfig"
 }
 </script>
 

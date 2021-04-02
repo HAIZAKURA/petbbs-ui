@@ -1,15 +1,16 @@
 <template>
-  <div id="config">
+  <div id="word-config">
     <div class="title">
-      <span class="title-text">设&nbsp;置</span>
+      <span class="title-text">敏&nbsp;感&nbsp;词&nbsp;设&nbsp;置</span>
     </div>
+
     <el-divider></el-divider>
   </div>
 </template>
 
 <script>
 export default {
-name: "Config"
+  name: "WordConfig"
 }
 </script>
 

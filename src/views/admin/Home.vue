@@ -37,10 +37,24 @@
             <span>&nbsp;照&nbsp;片</span>
           </el-menu-item>
 
-          <el-menu-item class="aside-menu-item" index="/admin/config" v-if="user.roleId === 1">
-            <i class="el-icon-setting"></i>
-            <span>&nbsp;设&nbsp;置</span>
-          </el-menu-item>
+          <el-submenu class="aside-menu-item" index="2" v-if="user.roleId === 1">
+            <template slot="title">
+              <i class="el-icon-setting"></i>
+              <span>&nbsp;设&nbsp;置</span>
+            </template>
+
+            <el-menu-item class="aside-submenu-item" index="/admin/config/site">
+              <span>系&nbsp;统&nbsp;侧</span>
+            </el-menu-item>
+
+            <el-menu-item class="aside-submenu-item" index="/admin/config/qiniu">
+              <span>七&nbsp;牛&nbsp;云</span>
+            </el-menu-item>
+
+            <el-menu-item class="aside-submenu-item" index="/admin/config/word">
+              <span>敏&nbsp;感&nbsp;词</span>
+            </el-menu-item>
+          </el-submenu>
         </el-menu>
       </el-aside>
 
@@ -50,7 +64,7 @@
             <div class="header-tool-item">
               <span class="header-user">{{ user.alias }}</span>
               <el-button type="primary" size="medium" round @click="back">返回论坛</el-button>
-              <el-button type="danger" size="medium" round>登出</el-button>
+              <el-button type="danger" size="medium" round @click="logout">登出</el-button>
             </div>
           </div>
         </el-header>
@@ -88,6 +102,19 @@ export default {
   methods: {
     back() {
       this.$router.push({ path: '/' })
+    },
+    async logout() {
+      this.$store.dispatch('user/logout')
+          .then(() => {
+            this.$message({
+              message: '注销成功',
+              type: 'success',
+              duration: 2000
+            })
+            setTimeout(() => {
+              this.$router.push({ path: this.redirect || '/' })
+            }, 1000)
+          })
     }
   }
 }

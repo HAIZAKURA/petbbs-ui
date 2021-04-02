@@ -114,7 +114,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { mapActions } from 'vuex'
 import { getNewNotify } from '@/api/notify'
 // import { getSiteInfo } from '@/api/config'
 
@@ -136,9 +135,10 @@ export default {
     // console.log(this.user)
   },
   mounted() {
-    if (this.token != null || this.token !== '') {
+    if (this.token) {
       setInterval(() => {
-        if (this.token != null && this.token !== '') {
+        // console.log(this.token)
+        if (this.token) {
           this.fetchNewNotify()
         }
       }, 3000)
@@ -146,7 +146,7 @@ export default {
   },
   methods: {
     async logout() {
-      this.userLogout('/user/logout')
+      this.$store.dispatch('user/logout')
           .then(() => {
             this.$message({
               message: '注销成功',
@@ -172,10 +172,7 @@ export default {
     },
     search() {
       this.$router.push({ name: 'Search', query: { keyword: this.searchKey } })
-    },
-    ...mapActions({
-      userLogout: 'user/logout'
-    })
+    }
   }
 }
 </script>

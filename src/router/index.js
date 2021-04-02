@@ -146,9 +146,19 @@ const routes = [
         component: () => import('../views/admin/Photo.vue')
       },
       {
-        path: '/admin/config',
-        name: 'AdminConfig',
-        component: () => import('../views/admin/Config.vue')
+        path: '/admin/config/site',
+        name: 'AdminSiteConfig',
+        component: () => import('../views/admin/SiteConfig.vue')
+      },
+      {
+        path: '/admin/config/qiniu',
+        name: 'AdminQiniuConfig',
+        component: () => import('../views/admin/QiniuConfig.vue')
+      },
+      {
+        path: '/admin/config/word',
+        name: 'AdminWordConfig',
+        component: () => import('../views/admin/WordConfig.vue')
       }
     ]
   }

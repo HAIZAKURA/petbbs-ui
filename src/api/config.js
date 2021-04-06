@@ -9,7 +9,7 @@ export function getSiteInfo() {
 }
 
 // 获取设置
-export function getSiteConfig() {
+export function getConfig() {
   return request({
     url: '/api/config',
     method: 'get'
@@ -17,7 +17,7 @@ export function getSiteConfig() {
 }
 
 // 修改设置
-export function updateSiteConfig(configs) {
+export function updateConfig(configs) {
   return request({
     url: '/api/config',
     method: 'put',
@@ -71,9 +71,12 @@ export function addSensitiveWord(words) {
 }
 
 // 删除敏感词
-export function delSensitiveWord(word) {
+export function delSensitiveWord(id) {
   return request({
-    url: '/api/admin/word/' + word,
-    method: 'delete'
+    url: '/api/admin/word',
+    method: 'delete',
+    params: {
+      id: id
+    }
   })
 }

@@ -46,6 +46,10 @@
                   v-model="siteConfig.site_side_ad"
               ></el-input>
             </el-form-item>
+
+            <el-form-item>
+              <el-button type="primary" @click="upSiteConfig">修改</el-button>
+            </el-form-item>
           </el-form>
         </div>
       </el-col>
@@ -98,6 +102,12 @@
                 </el-option>
               </el-select>
             </el-form-item>
+
+            <el-form-item>
+              <el-button @click="testMail">测试</el-button>
+
+              <el-button type="primary" @click="upMailConfig">修改</el-button>
+            </el-form-item>
           </el-form>
         </div>
       </el-col>
@@ -106,14 +116,14 @@
 </template>
 
 <script>
-import { getSiteConfig } from '@/api/config'
+import { getConfig, updateConfig, mailTest } from '@/api/config'
 
 export default {
   name: "SiteConfig",
   data() {
     return {
       siteConfig: {
-        site_itle: '',
+        site_title: '',
         site_logo: '',
         site_domain: '',
         site_beian: '',
@@ -140,11 +150,11 @@ export default {
     }
   },
   mounted() {
-    this.fetchSiteConfig()
+    this.fetchConfig()
   },
   methods: {
-    async fetchSiteConfig() {
-      getSiteConfig().then((res) => {
+    async fetchConfig() {
+      getConfig().then((res) => {
         // console.log(res)
         let { data } = res
         this.siteConfig.site_title = data.site_title
@@ -159,6 +169,89 @@ export default {
         this.mailConfig.mail_port = data.mail_port
         this.mailConfig.mail_ssl = data.mail_ssl
       })
+    },
+    upSiteConfig() {
+      let body = [
+        {
+          'item': 'site_title',
+          'value': this.siteConfig.site_title
+        },
+        {
+          'item': 'site_logo',
+          'value': this.siteConfig.site_logo
+        },
+        {
+          'item': 'site_domain',
+          'value': this.siteConfig.site_domain
+        },
+        {
+          'item': 'site_beian',
+          'value': this.siteConfig.site_beian
+        },
+        {
+          'item': 'site_side_ad',
+          'value': this.siteConfig.site_side_ad
+        }
+      ]
+      updateConfig(body).then(() => {
+        this.$message({
+          message: '修改成功',
+          type: 'success'
+        })
+        this.fetchConfig()
+      })
+    },
+    upMailConfig() {
+      // console.log(this.mailConfig)
+      let body = [
+        {
+          'item': 'mail_from',
+          'value': this.mailConfig.mail_from
+        },
+        {
+          'item': 'mail_host',
+          'value': this.mailConfig.mail_host
+        },
+        {
+          'item': 'mail_pass',
+          'value': this.mailConfig.mail_pass
+        },
+        {
+          'item': 'mail_port',
+          'value': this.mailConfig.mail_port
+        },
+        {
+          'item': 'mail_ssl',
+          'value': this.mailConfig.mail_ssl
+        },
+        {
+          'item': 'mail_user',
+          'value': this.mailConfig.mail_user
+        }
+      ]
+      updateConfig(body).then(() => {
+        this.$message({
+          message: '修改成功',
+          type: 'success'
+        })
+        this.fetchConfig()
+      })
+    },
+    testMail() {
+      let mailTo = 'hhbilly99@163.com'
+      mailTest(mailTo)
+          .then(() => {
+            this.$message({
+              message: '测试成功',
+              type: 'success'
+            })
+          })
+          .catch(() => {
+            this.$message({
+              message: '测试失败',
+              type: 'error'
+            })
+          })
     }
   }
 }

@@ -81,7 +81,7 @@
             sortable
         ></el-table-column>
 
-        <el-table-column min-width="30">
+        <el-table-column min-width="30" align="right">
           {{/* eslint-disable-next-line vue/no-unused-vars */}}
           <template slot="header" slot-scope="scope">
             <el-input

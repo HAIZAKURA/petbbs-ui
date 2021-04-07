@@ -47,7 +47,8 @@
 
 <script>
 import Vditor from 'vditor'
-import { getPost, updatePost } from '@/api/post'
+import { getPost, updatePost, updatePostByAdmin } from '@/api/post'
+import { mapGetters } from 'vuex'
 
 export default {
   name: "Edit",
@@ -59,8 +60,11 @@ export default {
     }
   },
   created() {
-    document.title = '修改话题 - ' + this.$root.site_info.site_title
+    document.title = '修改话题'
     this.fetchPost()
+  },
+  computed: {
+    ...mapGetters(['token', 'user'])
   },
   methods: {
     renderMarkdown(md) {
@@ -76,7 +80,7 @@ export default {
         }
       })
     },
-    fetchPost() {
+    async fetchPost() {
       getPost(this.$route.params.id).then((res) => {
         let { data } = res
         this.post = data.post
@@ -86,10 +90,17 @@ export default {
     },
     handleUpdate() {
       this.post.content = this.contentEditor.getValue()
-      updatePost(this.post).then((res) => {
-        let { data } = res
-        this.$router.push({ name: 'Post', params: { id: data.id } })
-      })
+      if (this.user.roleId === 1 || this.user.roleId === 2) {
+        updatePostByAdmin(this.post).then((res) => {
+          let { data } = res
+          this.$router.push({ name: 'Post', params: { id: data.id } })
+        })
+      } else {
+        updatePost(this.post).then((res) => {
+          let { data } = res
+          this.$router.push({ name: 'Post', params: { id: data.id } })
+        })
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()

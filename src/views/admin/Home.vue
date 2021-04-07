@@ -13,7 +13,8 @@
         >
           <div class="aside-logo">
             <div class="blank10"></div>
-            <img src="../../assets/logo.png" />
+<!--            <img src="../../assets/logo.png" />-->
+            <img :src="$root.site_info.site_logo">
             <div class="blank20"></div>
           </div>
 
@@ -27,14 +28,33 @@
             <span>&nbsp;用&nbsp;户</span>
           </el-menu-item>
 
-          <el-menu-item class="aside-menu-item" index="/admin/post">
-            <i class="el-icon-document"></i>
-            <span>&nbsp;话&nbsp;题</span>
-          </el-menu-item>
+          <el-submenu class="aside-menu-item" index="1">
+            <template slot="title">
+              <i class="el-icon-document"></i>
+              <span>&nbsp;话&nbsp;题</span>
+            </template>
+
+            <el-menu-item class="aside-submenu-item" index="/admin/post">
+              <span>话&nbsp;题</span>
+            </el-menu-item>
+
+            <el-menu-item class="aside-submenu-item" index="/admin/tag">
+              <span>标&nbsp;签</span>
+            </el-menu-item>
+
+            <el-menu-item class="aside-submenu-item" index="/admin/section">
+              <span>专&nbsp;栏</span>
+            </el-menu-item>
+          </el-submenu>
 
           <el-menu-item class="aside-menu-item" index="/admin/photo">
             <i class="el-icon-picture-outline"></i>
             <span>&nbsp;照&nbsp;片</span>
+          </el-menu-item>
+
+          <el-menu-item class="aside-menu-item" index="/admin/billboard">
+            <i class="el-icon-postcard"></i>
+            <span>&nbsp;公&nbsp;告</span>
           </el-menu-item>
 
           <el-submenu class="aside-menu-item" index="2" v-if="user.roleId === 1">
@@ -97,7 +117,7 @@ export default {
     }
   },
   mounted() {
-    document.title = '控制面板 - ' + this.$root.site_info.site_title
+    document.title = '控制面板'
   },
   methods: {
     back() {

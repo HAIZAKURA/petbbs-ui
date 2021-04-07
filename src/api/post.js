@@ -66,6 +66,15 @@ export function updatePostByAdmin(Post) {
   })
 }
 
+// 管理快速修改话题
+export function fastUpdatePostByAdmin(dto) {
+  return request({
+    url: '/api/admin/fast/post',
+    method: 'put',
+    data: dto
+  })
+}
+
 // 获取推荐列表
 export function getRecommendPostList(id) {
   return request({

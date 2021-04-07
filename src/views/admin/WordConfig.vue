@@ -89,6 +89,8 @@ export default {
           })
           this.fetchSensitiveWord()
         })
+      } else {
+        window.alert('输入不能为空！')
       }
     }
   }

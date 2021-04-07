@@ -159,6 +159,21 @@ const routes = [
         path: '/admin/config/word',
         name: 'AdminWordConfig',
         component: () => import('../views/admin/WordConfig.vue')
+      },
+      {
+        path: '/admin/tag',
+        name: 'AdminTag',
+        component: () => import('../views/admin/Tag.vue')
+      },
+      {
+        path: '/admin/section',
+        name: 'AdminSection',
+        component: () => import('../views/admin/Section.vue')
+      },
+      {
+        path: '/admin/billboard',
+        name: 'AdminBillboard',
+        component: () => import('../views/admin/Billboard.vue')
       }
     ]
   }

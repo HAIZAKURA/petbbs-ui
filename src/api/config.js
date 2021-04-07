@@ -80,3 +80,11 @@ export function delSensitiveWord(id) {
     }
   })
 }
+
+// 获取总览数据
+export function getSummary() {
+  return request({
+    url: '/api/summary',
+    method: 'get'
+  })
+}

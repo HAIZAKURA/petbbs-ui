@@ -65,7 +65,7 @@
               size="mini"
               type="danger"
               @click="handleChange(scope.row)"
-          >弃用</el-button>
+          >停用</el-button>
         </template>
       </el-table-column>
 

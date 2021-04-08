@@ -3,6 +3,7 @@
     <Welcome></Welcome>
     <Tips></Tips>
     <Links></Links>
+    <Status></Status>
     <SideAd></SideAd>
   </section>
 </template>
@@ -10,6 +11,7 @@
 <script>
 import Welcome from '@/components/card/Welcome'
 import Tips from '@/components/card/Tips'
+import Status from 'components/card/Status'
 import Links from '@/components/card/Links'
 import SideAd from '@/components/card/SideAd'
 
@@ -18,6 +20,7 @@ export default {
   components: {
     Welcome,
     Tips,
+    Status,
     Links,
     SideAd
   }

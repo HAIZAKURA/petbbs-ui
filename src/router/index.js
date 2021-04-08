@@ -116,7 +116,7 @@ const routes = [
       {
         path: '/edit/:id',
         name: 'EditPost',
-        component: () => import('../views/Edit')
+        component: () => import('../views/EditPost')
       }
     ]
   },

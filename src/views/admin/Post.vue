@@ -155,7 +155,7 @@ export default {
         size: 10,
         total: 0
       },
-      postListHeight: window.innerHeight * 0.75,
+      postListHeight: window.innerHeight * 0.8,
       postLoading: false,
       search: '',
     }

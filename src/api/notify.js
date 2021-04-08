@@ -23,3 +23,12 @@ export function setReadNotify(id) {
     method: 'put'
   })
 }
+
+// 管理员发布通知
+export function addNotifyByAdmin(dto) {
+  return request({
+    url: '/api/admin/notify',
+    method: 'post',
+    data: dto
+  })
+}

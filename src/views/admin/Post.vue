@@ -91,30 +91,30 @@
 
                 <el-dropdown-item
                     v-if="!scope.row.top"
-                    @click="handleTop(scope.row.id, scope.row.top, scope.row.essence)"
+                    @click.native="handleTop(scope.row.id, scope.row.top, scope.row.essence)"
                 >置顶</el-dropdown-item>
 
                 <el-dropdown-item
                     v-else
-                    @click="handleTop(scope.row.id, scope.row.top, scope.row.essence)"
+                    @click.native="handleTop(scope.row.id, scope.row.top, scope.row.essence)"
                 >取消置顶</el-dropdown-item>
 
                 <el-dropdown-item
                     v-if="!scope.row.essence"
-                    @click="handleEssence(scope.row.id, scope.row.top, scope.row.essence)"
+                    @click.native="handleEssence(scope.row.id, scope.row.top, scope.row.essence)"
                 >加精</el-dropdown-item>
 
                 <el-dropdown-item
                     v-else
-                    @click="handleEssence(scope.row.id, scope.row.top, scope.row.essence)"
+                    @click.native="handleEssence(scope.row.id, scope.row.top, scope.row.essence)"
                 >取消加精</el-dropdown-item>
 
                 <el-dropdown-item
-                    @click="handleEdit(scope.row.id)"
+                    @click.native="handleEdit(scope.row.id)"
                 >编辑</el-dropdown-item>
 
                 <el-dropdown-item
-                    @click="handleDelete(scope.row.id)"
+                    @click.native="handleDelete(scope.row.id)"
                     style="color: #ff0000"
                 >删除</el-dropdown-item>
               </el-dropdown-menu>
@@ -198,8 +198,9 @@ export default {
     handleDelete(id) {
       if (window.confirm('确定要删除该话题🐴？')) {
         delPostByAdmin(id).then(() => {
-          this.$message({
-            message: '删除成功',
+          this.$notify({
+            position: 'bottom-right',
+            message: '话题删除成功',
             type: 'success'
           })
         })
@@ -212,16 +213,18 @@ export default {
         'essence': essence,
         'top': !top
       }
-      // console.log(body)
+      console.log(body)
       fastUpdatePostByAdmin(body).then(() => {
         if (!top) {
-          this.$message({
-            message: '置顶成功',
+          this.$notify({
+            position: 'bottom-right',
+            title: '话题置顶成功',
             type: 'success'
           })
         } else {
-          this.$message({
-            message: '取消置顶成功',
+          this.$notify({
+            position: 'bottom-right',
+            title: '话题取消置顶成功',
             type: 'success'
           })
         }
@@ -236,13 +239,15 @@ export default {
       }
       fastUpdatePostByAdmin(body).then(() => {
         if (!essence) {
-          this.$message({
-            message: '加精成功',
+          this.$notify({
+            position: 'bottom-right',
+            title: '话题加精成功',
             type: 'success'
           })
         } else {
-          this.$message({
-            message: '取消加精成功',
+          this.$notify({
+            position: 'bottom-right',
+            title: '话题取消加精成功',
             type: 'success'
           })
         }

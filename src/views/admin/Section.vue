@@ -315,8 +315,9 @@ export default {
     },
     handleEdit() {
       updateSectionByAdmin(this.sectionInfo).then(() => {
-        this.$message({
-          message: '修改成功',
+        this.$notify({
+          position: 'bottom-right',
+          title: '专栏信息修改成功',
           type: 'success'
         })
         this.handleEditClose()
@@ -329,8 +330,9 @@ export default {
         "state": !row.state
       }
       updateSectionByAdmin(body).then(() => {
-        this.$message({
-          message: '修改成功',
+        this.$notify({
+          position: 'bottom-right',
+          title: '专栏状态修改成功',
           type: 'success'
         })
         if (!row.state) {
@@ -365,8 +367,9 @@ export default {
     },
     handleAdd() {
       addSection(this.section).then(() => {
-        this.$message({
-          message: '添加成功',
+        this.$notify({
+          position: 'bottom-right',
+          title: '专栏添加成功',
           type: 'success'
         })
         this.handleAddClose()

@@ -104,8 +104,9 @@ export default {
         'state': !row.state
       }
       updateBillboard(body).then(() => {
-        this.$message({
-          message: '修改成功',
+        this.$notify({
+          position: 'bottom-right',
+          title: '公告状态修改成功',
           type: 'success'
         })
         this.fetchBillboardList()
@@ -118,8 +119,9 @@ export default {
           'content': content
         }
         addBillboard(body).then(() => {
-          this.$message({
-            message: '添加成功',
+          this.$notify({
+            position: 'bottom-right',
+            message: '公告添加成功',
             type: 'success'
           })
           this.fetchBillboardList()

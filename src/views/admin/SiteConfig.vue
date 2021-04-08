@@ -25,7 +25,17 @@
             <el-form-item label="Logo">
               <el-input
                   v-model="siteConfig.site_logo"
-              ></el-input>
+              >
+                <template slot="append">
+                  <el-upload
+                      action=""
+                      accept="image/*"
+                      :before-upload="upload"
+                  >
+                    <el-button icon="el-icon-upload"></el-button>
+                  </el-upload>
+                </template>
+              </el-input>
             </el-form-item>
 
             <el-form-item label="域名">
@@ -117,6 +127,7 @@
 
 <script>
 import { getConfig, updateConfig, mailTest } from '@/api/config'
+import { uploadUtil } from '@/api/upload'
 
 export default {
   name: "SiteConfig",
@@ -194,8 +205,9 @@ export default {
         }
       ]
       updateConfig(body).then(() => {
-        this.$message({
-          message: '修改成功',
+        this.$notify({
+          position: 'bottom-right',
+          title: '配置修改成功',
           type: 'success'
         })
         this.fetchConfig()
@@ -230,8 +242,9 @@ export default {
         }
       ]
       updateConfig(body).then(() => {
-        this.$message({
-          message: '修改成功',
+        this.$notify({
+          position: 'bottom-right',
+          title: '配置修改成功',
           type: 'success'
         })
         this.fetchConfig()
@@ -241,14 +254,43 @@ export default {
       let mailTo = 'hhbilly99@163.com'
       mailTest(mailTo)
           .then(() => {
-            this.$message({
-              message: '测试成功',
+            this.$notify({
+              position: 'bottom-right',
+              title: '邮箱测试成功',
               type: 'success'
             })
           })
           .catch(() => {
-            this.$message({
-              message: '测试失败',
+            this.$notify({
+              position: 'bottom-right',
+              title: '邮箱测试失败',
+              type: 'error'
+            })
+          })
+    },
+    upload(file) {
+      this.$message({
+        message: '上传中...',
+        type: 'info',
+        duration: 1000
+      })
+      let fd = new FormData()
+      fd.append('file', file)
+      fd.append('type', 'image')
+      uploadUtil(fd)
+          .then((res) => {
+            let { data } = res
+            this.$notify({
+              position: 'bottom-right',
+              title: '文件上传成功',
+              type: 'success'
+            })
+            this.siteConfig.site_logo = data.url
+          })
+          .catch(() => {
+            this.$notify({
+              position: 'bottom-right',
+              title: '文件上传失败',
               type: 'error'
             })
           })

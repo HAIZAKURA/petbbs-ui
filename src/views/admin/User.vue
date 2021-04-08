@@ -351,8 +351,9 @@ export default {
     },
     editUser() {
       updateUserByAdmin(this.userInfo).then(() => {
-        this.$message({
-          message: '修改成功',
+        this.$notify({
+          position: 'bottom-right',
+          title: '用户信息修改成功',
           type: 'success'
         })
         this.handleEditClose()
@@ -366,8 +367,9 @@ export default {
       // console.log(row)
       row.status = false
       updateUserByAdmin(row).then(() => {
-        this.$message({
-          message: '封禁成功',
+        this.$notify({
+          position: 'bottom-right',
+          title: '用户封禁成功',
           type: 'success'
         })
         this.fetchUserList()
@@ -376,8 +378,9 @@ export default {
     handleRecoverUser(row) {
       row.status = true
       updateUserByAdmin(row).then(() => {
-        this.$message({
-          message: '解封成功',
+        this.$notify({
+          position: 'bottom-right',
+          title: '用户解封成功',
           type: 'success'
         })
         this.fetchUserList()

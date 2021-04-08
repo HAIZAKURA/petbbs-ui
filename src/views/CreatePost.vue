@@ -344,6 +344,7 @@ export default {
             }
             this.photoList.push(item)
             this.loading = false
+            this.photoListDialog = true
             // this.dialogVisible = true
             // console.log(this.photoList)
             // console.log(res)

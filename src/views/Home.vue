@@ -1,21 +1,22 @@
 <template>
   <div id="home">
-    <div class="mb-5">
-      <Header></Header>
+    <div id="content">
+      <div class="mb-5">
+        <Header></Header>
+      </div>
+
+      <div class="container context">
+        <transition
+            name="el-fade-in-linear"
+            mode="out-in"
+            appear
+        >
+          <router-view :key="this.$route.fullPath"></router-view>
+        </transition>
+      </div>
+
+      <Footer></Footer>
     </div>
-
-    <div class="container context">
-      <transition
-          name="el-fade-in-linear"
-          mode="out-in"
-          appear
-      >
-        <router-view :key="this.$route.fullPath"></router-view>
-      </transition>
-    </div>
-
-    <Footer></Footer>
-
   </div>
 </template>
 
@@ -41,4 +42,7 @@ export default {
 <style lang="stylus" scoped>
 .container
   min-height 500px
+
+#home
+  background url("../assets/bg.png") repeat
 </style>

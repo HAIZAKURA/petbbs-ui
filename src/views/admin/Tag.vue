@@ -106,8 +106,9 @@ export default {
           'postCount': row.postCount
         }
         editTagByAdmin(body).then(() => {
-          this.$message({
-            message: '修改成功',
+          this.$notify({
+            position: 'bottom-right',
+            title: '标签修改成功',
             type: 'success'
           })
           this.fetchTagList()
@@ -119,8 +120,9 @@ export default {
     handleDelete(id) {
       if (window.confirm('确认删除该标签吗？')) {
         deleteTagByAdmin(id).then(() => {
-          this.$message({
-            message: '删除成功',
+          this.$notify({
+            position: 'bottom-right',
+            title: '标签删除成功',
             type: 'success'
           })
           this.fetchTagList()
@@ -132,8 +134,9 @@ export default {
       if (input != null && input !== '') {
         let tagList = input.split(',')
         addTagByAdmin(tagList).then(() => {
-          this.$message({
-            message: '添加成功',
+          this.$notify({
+            position: 'bottom-right',
+            title: '标签添加成功',
             type: 'success'
           })
           this.fetchTagList()

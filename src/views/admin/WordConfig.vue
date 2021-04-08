@@ -70,8 +70,9 @@ export default {
     deleteWord(id) {
       if (window.confirm('确定要删除吗？')) {
         delSensitiveWord(id).then(() => {
-          this.$message({
-            message: '删除成功',
+          this.$notify({
+            position: 'bottom-right',
+            title: '敏感词删除成功',
             type: 'success'
           })
           this.fetchSensitiveWord()
@@ -83,8 +84,9 @@ export default {
       if (words != null && words !== '') {
         let body = words.split(',')
         addSensitiveWord(body).then(() => {
-          this.$message({
-            message: '添加成功',
+          this.$notify({
+            position: 'bottom-right',
+            title: '敏感词添加成功',
             type: 'success'
           })
           this.fetchSensitiveWord()

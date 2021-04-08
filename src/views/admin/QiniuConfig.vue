@@ -73,8 +73,9 @@ export default {
     },
     upQiniuConfig() {
       updateQiniuConfig(this.qiniuConfig).then(() => {
-        this.$message({
-          message: '修改成功',
+        this.$notify({
+          position: 'bottom-right',
+          title: '配置修改成功',
           type: 'success'
         })
       })

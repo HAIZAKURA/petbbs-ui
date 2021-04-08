@@ -163,8 +163,9 @@ export default {
     },
     handleDelete(id) {
       delPhotoByAdmin(id).then(() => {
-        this.$message({
-          message: '删除成功',
+        this.$notify({
+          position: 'bottom-right',
+          title: '照片删除成功',
           type: 'success'
         })
         this.fetchPhotoList()

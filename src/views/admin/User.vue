@@ -91,30 +91,34 @@
           </template>
 
           <template slot-scope="scope">
-            <el-button-group v-if="scope.row.roleId >= user.roleId">
-              <el-button
-                  size="mini"
-                  type="primary"
-                  icon="el-icon-edit"
-                  @click="handleEditOpen(scope.row)"
-              ></el-button>
+            <el-dropdown>
+              <el-button size="mini" type="primary"><i class="el-icon-setting"></i></el-button>
 
-              <el-button
-                  v-if="!(scope.row.id === user.id) && (scope.row.status)"
-                  size="mini"
-                  type="danger"
-                  icon="el-icon-close"
-                  @click="handleBanUser(scope.row)"
-              ></el-button>
+              <el-dropdown-menu slot="dropdown">
 
-              <el-button
-                  v-if="!scope.row.status"
-                  size="mini"
-                  type="success"
-                  icon="el-icon-refresh-right"
-                  @click="handleRecoverUser(scope.row)"
-              ></el-button>
-            </el-button-group>
+                <el-dropdown-item
+                    v-if="scope.row.roleId >= user.roleId"
+                    @click.native="handleEditOpen(scope.row)"
+                >修改</el-dropdown-item>
+
+                <el-dropdown-item
+                    v-if="!(scope.row.id === user.id)"
+                    @click.native="handleNotifyOpen(scope.row.id)"
+                >通知</el-dropdown-item>
+
+                <el-dropdown-item
+                    style="color: #ff0000"
+                    v-if="!(scope.row.id === user.id) && (scope.row.status)"
+                    @click.native="handleBanUser(scope.row)"
+                >封禁</el-dropdown-item>
+
+                <el-dropdown-item
+                    style="color: #ff0000"
+                    v-if="!scope.row.status"
+                    @click.native="handleRecoverUser(scope.row)"
+                >解封</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </template>
         </el-table-column>
       </el-table>
@@ -221,11 +225,62 @@
         <el-button type="primary" @click="editUser">确定</el-button>
       </span>
     </el-dialog>
+
+    <el-dialog
+        title="推 送 通 知"
+        :visible.sync="notifyDialogVisible"
+        width="40%"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
+        :show-close="false"
+        :destroy-on-close="true"
+        center
+    >
+      <div class="notifyFormDiv">
+        <el-form ref="notifyForm" label-position="left" :model="notify" label-width="80px">
+          <el-form-item label="用户ID">
+            <el-input
+                v-model="notify.userId"
+                disabled
+            ></el-input>
+          </el-form-item>
+
+          <el-form-item label="内容">
+            <el-input
+                v-model="notify.content"
+                type="textarea"
+                maxlength="255"
+                show-word-limit
+            ></el-input>
+          </el-form-item>
+
+          <el-form-item label="关联">
+            <el-select v-model="remarkType" placeholder="请选择">
+              <el-option
+                  v-for="item in remarkTypeList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item label="关联ID">
+            <el-input v-model="remarkId"></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <span slot="footer">
+        <el-button @click="handleNotifyClose">取消</el-button>
+        <el-button type="primary" @click="sendNotify">推送</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { getUsersByAdmin, updateUserByAdmin } from '@/api/user'
+import { addNotifyByAdmin } from '@/api/notify'
 import Pagination from '@/components/layout/Pagination'
 import { mapGetters } from 'vuex'
 
@@ -246,6 +301,7 @@ export default {
       userListHeight: window.innerHeight * 0.75,
       search: '',
       editDialogVisible: false,
+      notifyDialogVisible: false,
       userInfo: {
         id: '',
         username: '',
@@ -270,6 +326,31 @@ export default {
         {
           id: 10000,
           remark: '用户'
+        }
+      ],
+      notify: {
+        userId: '',
+        content: '',
+        remark: ''
+      },
+      remarkType: '',
+      remarkId: '',
+      remarkTypeList: [
+        {
+          label: '无',
+          value: ''
+        },
+        {
+          label: '话题',
+          value: 'post'
+        },
+        {
+          label: '照片',
+          value: 'photos'
+        },
+        {
+          label: '专栏',
+          value: 'sections'
         }
       ]
     }
@@ -385,6 +466,38 @@ export default {
         })
         this.fetchUserList()
       })
+    },
+    handleNotifyOpen(id) {
+      this.notify.userId = id
+      this.notifyDialogVisible = true
+    },
+    handleNotifyClose() {
+      this.notify.userId = ''
+      this.notify.content = ''
+      this.notify.remark = ''
+      this.notifyDialogVisible = false
+    },
+    sendNotify() {
+      if (this.remarkType === '') {
+        this.remarkId = ''
+      }
+      this.notify.remark = this.remarkType + '/' + this.remarkId
+      addNotifyByAdmin(this.notify)
+          .then(() => {
+            this.$notify({
+              position: 'bottom-right',
+              title: '通知推送成功',
+              type: 'success'
+            })
+          })
+          .catch(() => {
+            this.$notify({
+              position: 'bottom-right',
+              title: '通知推送失败',
+              type: 'error'
+            })
+          })
+      this.handleNotifyClose()
     }
   }
 }

@@ -34,7 +34,7 @@
             />
             <p class="control">
               <b-button class="is-info" @click="search()">
-                <i class="fa fa-search"></i>
+                <i class="fas fa-spider"></i>
               </b-button>
             </p>
           </b-field>

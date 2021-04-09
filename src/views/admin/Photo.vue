@@ -79,7 +79,7 @@
                 size="mini"
                 type="danger"
                 icon="el-icon-delete"
-                @click="handleDelete(scope.row.id)"
+                @click="handleDelete(scope.row)"
             ></el-button>
           </template>
         </el-table-column>
@@ -102,6 +102,7 @@
 
 <script>
 import { getList, delPhotoByAdmin } from '@/api/photo'
+import { addNotifyByAdmin } from '@/api/notify'
 import Pagination from '@/components/layout/Pagination'
 
 export default {
@@ -161,13 +162,19 @@ export default {
         this.photoLoading = false
       })
     },
-    handleDelete(id) {
-      delPhotoByAdmin(id).then(() => {
+    handleDelete(row) {
+      delPhotoByAdmin(row.id).then(() => {
         this.$notify({
           position: 'bottom-right',
           title: '照片删除成功',
           type: 'success'
         })
+        let dto = {
+          'userId': row.userId,
+          'content': '您的照片已被删除了哦！',
+          'remark': 'photos/' + row.id
+        }
+        addNotifyByAdmin(dto)
         this.fetchPhotoList()
       })
     }

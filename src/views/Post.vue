@@ -67,6 +67,7 @@ import CommentList from '@/components/comment/CommentList'
 
 import { getPost, delPost, delPostByAdmin } from '@/api/post'
 import { putCollect } from '@/api/collect'
+import { addNotifyByAdmin } from '@/api/notify'
 import { mapGetters } from 'vuex'
 
 import Vditor from 'vditor'
@@ -122,6 +123,12 @@ export default {
                   message: '删除成功',
                   type: 'success'
                 })
+                let dto = {
+                  'userId': this.postUser.id,
+                  'content': '您的话题 ' + this.post.title + ' 已被删除了哦！',
+                  'remark': 'post/' + postId
+                }
+                addNotifyByAdmin(dto)
                 setTimeout(() => {
                   this.$router.push({ path: '/' })
                 }, 1000)

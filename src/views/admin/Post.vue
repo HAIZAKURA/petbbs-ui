@@ -40,7 +40,7 @@
             min-width="20"
         >
           <template slot-scope="scope">
-            <router-link :to="{ name: 'User', params: { id: scope.row.id } }">{{ scope.row.username }}</router-link>
+            <router-link :to="{ name: 'User', params: { id: scope.row.userId } }">{{ scope.row.username }}</router-link>
           </template>
         </el-table-column>
 
@@ -72,7 +72,7 @@
         </el-table-column>
 
         <el-table-column
-            min-width="30"
+            min-width="25"
             align="right"
         >
           {{/* eslint-disable-next-line vue/no-unused-vars */}}
@@ -85,28 +85,28 @@
 
           <template slot-scope="scope">
             <el-dropdown>
-              <el-button size="mini" type="primary">操作<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+              <el-button size="mini" type="primary"><i class="el-icon-setting"></i></el-button>
 
               <el-dropdown-menu slot="dropdown">
 
                 <el-dropdown-item
                     v-if="!scope.row.top"
-                    @click.native="handleTop(scope.row.id, scope.row.top, scope.row.essence)"
+                    @click.native="handleTop(scope.row)"
                 >置顶</el-dropdown-item>
 
                 <el-dropdown-item
                     v-else
-                    @click.native="handleTop(scope.row.id, scope.row.top, scope.row.essence)"
+                    @click.native="handleTop(scope.row)"
                 >取消置顶</el-dropdown-item>
 
                 <el-dropdown-item
                     v-if="!scope.row.essence"
-                    @click.native="handleEssence(scope.row.id, scope.row.top, scope.row.essence)"
+                    @click.native="handleEssence(scope.row)"
                 >加精</el-dropdown-item>
 
                 <el-dropdown-item
                     v-else
-                    @click.native="handleEssence(scope.row.id, scope.row.top, scope.row.essence)"
+                    @click.native="handleEssence(scope.row)"
                 >取消加精</el-dropdown-item>
 
                 <el-dropdown-item
@@ -114,7 +114,7 @@
                 >编辑</el-dropdown-item>
 
                 <el-dropdown-item
-                    @click.native="handleDelete(scope.row.id)"
+                    @click.native="handleDelete(scope.row)"
                     style="color: #ff0000"
                 >删除</el-dropdown-item>
               </el-dropdown-menu>
@@ -140,6 +140,7 @@
 
 <script>
 import { getPostList, delPostByAdmin, fastUpdatePostByAdmin } from '@/api/post'
+import { addNotifyByAdmin } from '@/api/notify'
 import Pagination from '@/components/layout/Pagination'
 
 export default {
@@ -195,61 +196,91 @@ export default {
     handleEdit(id) {
       this.$router.push({ name: 'EditPost', params: {id: id} })
     },
-    handleDelete(id) {
+    handleDelete(row) {
       if (window.confirm('确定要删除该话题🐴？')) {
-        delPostByAdmin(id).then(() => {
+        delPostByAdmin(row.id).then(() => {
           this.$notify({
             position: 'bottom-right',
             message: '话题删除成功',
             type: 'success'
           })
+          let dto = {
+            'userId': row.userId,
+            'content': '您的话题 ' + row.title + ' 已被删除了哦！',
+            'remark': 'post/' + row.id
+          }
+          addNotifyByAdmin(dto)
         })
         this.fetchPostList()
       }
     },
-    handleTop(id, top, essence) {
+    handleTop(row) {
       let body = {
-        'id': id,
-        'essence': essence,
-        'top': !top
+        'id': row.id,
+        'essence': row.essence,
+        'top': !row.top
       }
-      console.log(body)
+      // console.log(body)
       fastUpdatePostByAdmin(body).then(() => {
-        if (!top) {
+        if (!row.top) {
           this.$notify({
             position: 'bottom-right',
             title: '话题置顶成功',
             type: 'success'
           })
+          let dto = {
+            'userId': row.userId,
+            'content': '您的话题 ' + row.title + ' 已被置顶了哦！',
+            'remark': 'post/' + row.id
+          }
+          addNotifyByAdmin(dto)
         } else {
           this.$notify({
             position: 'bottom-right',
             title: '话题取消置顶成功',
             type: 'success'
           })
+          let dto = {
+            'userId': row.userId,
+            'content': '您的话题 ' + row.title + ' 已被取消置顶了哦！',
+            'remark': 'post/' + row.id
+          }
+          addNotifyByAdmin(dto)
         }
         this.fetchPostList()
       })
     },
-    handleEssence(id, top, essence) {
+    handleEssence(row) {
       let body = {
-        'id': id,
-        'top': top,
-        'essence': !essence
+        'id': row.id,
+        'top': row.top,
+        'essence': !row.essence
       }
       fastUpdatePostByAdmin(body).then(() => {
-        if (!essence) {
+        if (!row.essence) {
           this.$notify({
             position: 'bottom-right',
             title: '话题加精成功',
             type: 'success'
           })
+          let dto = {
+            'userId': row.userId,
+            'content': '您的话题 ' + row.title + ' 已被加精了哦！',
+            'remark': 'post/' + row.id
+          }
+          addNotifyByAdmin(dto)
         } else {
           this.$notify({
             position: 'bottom-right',
             title: '话题取消加精成功',
             type: 'success'
           })
+          let dto = {
+            'userId': row.userId,
+            'content': '您的话题 ' + row.title + ' 已被取消加精了哦！',
+            'remark': 'post/' + row.id
+          }
+          addNotifyByAdmin(dto)
         }
         this.fetchPostList()
       })

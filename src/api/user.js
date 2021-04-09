@@ -103,3 +103,15 @@ export function updatePass(oldPass, newPass) {
   })
 }
 
+// 重置密码
+export function resetPass(user, email) {
+  return request({
+    url: '/api/r-password',
+    methods: 'get',
+    params: {
+      user: user,
+      email: email
+    }
+  })
+}
+

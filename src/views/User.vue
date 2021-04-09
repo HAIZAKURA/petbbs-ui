@@ -14,7 +14,7 @@
             <p class="alias">{{ userInfo.alias }}</p>
             <p class="bio">{{ userInfo.bio }}</p>
             <p class="username has-text-grey">@{{ userInfo.username }}</p>
-            <p class="email has-text-grey">{{ userInfo.email }}</p>
+            <p class="email has-text-grey"><span class="mx-1"></span></p>
             <p class="date has-text-grey">加入于<span class="mx-1"></span>{{ dayjs(userInfo.createTime).format('YYYY年MM月DD日 HH:MM:ss') }}</p>
             <div class="sometag">
               <el-tag size="mini" v-if="userInfo.active">已激活</el-tag>

@@ -37,17 +37,48 @@
 
             <el-form-item>
               <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-              <el-button @click="resetForm('ruleForm')">重置</el-button>
+              <span class="mx-4"></span>
+              <a @click="handleResetOpen"><span>忘记密码？</span></a>
             </el-form-item>
           </el-form>
         </div>
       </el-card>
     </div>
+
+    <el-dialog
+        title="重 置 密 码"
+        :visible.sync="dialogVisible"
+        width="40%"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
+        :show-close="false"
+        :destroy-on-close="true"
+        center
+    >
+      <el-form ref="resetPassForm" label-position="left" :model="resetPassForm" label-width="80px">
+        <el-form-item label="用户名">
+          <el-input
+              v-model="resetPassForm.user"
+          ></el-input>
+        </el-form-item>
+
+        <el-form-item label="邮箱">
+          <el-input
+              v-model="resetPassForm.email"
+          ></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer">
+        <el-button @click="handleResetClose">取消</el-button>
+        <el-button type="primary" @click="handleResetPass">重置</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import Verify from 'vue2-verify'
+import { resetPass } from '@/api/user'
 
 export default {
   name: "Login",
@@ -57,6 +88,11 @@ export default {
   data() {
     return {
       redirect: this.$route.query.to,
+      dialogVisible: false,
+      resetPassForm: {
+        user: '',
+        email: ''
+      },
       verify: false,
       loading: false,
       ruleForm: {
@@ -135,6 +171,26 @@ export default {
     errorVerify() {
       this.verify = false
       window.alert("验证失败")
+    },
+    handleResetOpen() {
+      this.dialogVisible = true
+      this.resetPassForm.user = ''
+      this.resetPassForm.email = ''
+    },
+    handleResetClose() {
+      this.dialogVisible = false
+      this.resetPassForm.user = ''
+      this.resetPassForm.email = ''
+    },
+    handleResetPass() {
+      resetPass(this.resetPassForm.user, this.resetPassForm.email)
+          .then(() => {
+            this.$message({
+              message: '新密码已发送至邮箱中',
+              type: 'success'
+            })
+            this.handleResetClose()
+          })
     }
   }
 }

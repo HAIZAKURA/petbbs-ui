@@ -112,7 +112,7 @@ export default {
                   })
                   setTimeout(() => {
                     this.loading = false;
-                    this.$router.push({ path: this.redirect || '/' })
+                    window.location.href = '/'
                   }, 0.1 * 1000)
                 })
                 .catch(() => {

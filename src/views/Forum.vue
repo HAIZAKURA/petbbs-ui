@@ -26,7 +26,6 @@ import PostList from '@/components/post/PostList'
 import CardBar from '@/components/layout/CardBar'
 
 // import { getSiteInfo } from '@/api/config'
-import { activeUser } from '@/api/user'
 import { getBillboard } from '@/api/billboard'
 
 export default {
@@ -39,18 +38,9 @@ export default {
   data() {
     return {
       billboard: '',
-      activeDTO: {
-        user: this.$route.query.user,
-        code: this.$route.query.code
-      }
     }
   },
   created() {
-    // getSiteInfo().then(data => {
-    //   this.$root.site_info = data.data
-    //   document.title = data.data.site_title
-    // })
-    this.handleActive()
     this.fetchBillboard()
   },
   mounted() {
@@ -59,26 +49,6 @@ export default {
     }, 100)
   },
   methods: {
-    handleActive() {
-      if (this.activeDTO.code && this.activeDTO.user) {
-        activeUser(this.active).then((value) => {
-          let { code, message } = value
-          if (code === 200) {
-            this.$message({
-              message: message,
-              type: 'success',
-              duration: 2000
-            })
-          } else {
-            this.$message({
-              message: message,
-              type: 'error',
-              duration: 2000
-            })
-          }
-        })
-      }
-    },
     async fetchBillboard() {
       getBillboard().then((data) => {
         this.billboard = data.data

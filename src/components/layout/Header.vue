@@ -136,12 +136,15 @@ export default {
   },
   mounted() {
     if (this.token) {
-      setInterval(() => {
-        // console.log(this.token)
-        if (this.token) {
-          this.fetchNewNotify()
-        }
-      }, 3000)
+      getNewNotify()
+          .then(() => {
+            setInterval(() => {
+              // console.log(this.token)
+              if (this.token) {
+                this.fetchNewNotify()
+              }
+            }, 3000)
+          })
     }
   },
   methods: {
@@ -158,7 +161,7 @@ export default {
             }, 1000)
           })
     },
-    async fetchNewNotify() {
+    fetchNewNotify() {
       getNewNotify()
           .then((data) => {
             this.newNotifyNum = data.data.length

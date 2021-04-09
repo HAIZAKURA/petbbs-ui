@@ -52,16 +52,17 @@ export default {
     },
     submitForm() {
       this.loading = true
-      reActiveUser(this.form.name, this.form.email).then(() => {
-        this.$message({
-          message: '发送成功',
-          type: 'success'
-        })
-        this.loading = false
-        setTimeout(() => {
-          this.$router.push({ path: '/' })
-        }, 800)
-      })
+      reActiveUser(this.form.name, this.form.email)
+          .then(() => {
+            this.$message({
+              message: '激活链接已发送至您的邮箱中',
+              type: 'success'
+            })
+            this.loading = false
+          })
+          .catch(() => {
+            this.loading = false
+          })
     }
   }
 }

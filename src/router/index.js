@@ -34,6 +34,11 @@ const routes = [
         component: () => import('../views/Register')
       },
       {
+        path: '/active',
+        name: 'Active',
+        component: () => import('../views/Active')
+      },
+      {
         path: '/reactive',
         name: 'ReActive',
         component: () => import('../views/ReActive')
@@ -121,64 +126,64 @@ const routes = [
       {
         path: '/404',
         name: '404',
-        component: () => import('../views/404.vue')
+        component: () => import('../views/404')
       }
     ]
   },
   {
     path: '/admin',
     name: 'AdminHome',
-    component: () => import('../views/admin/Home.vue'),
+    component: () => import('../views/admin/Home'),
     children: [
       {
         path: '/admin',
         name: 'AdminDash',
-        component: () => import('../views/admin/Dash.vue')
+        component: () => import('../views/admin/Dash')
       },
       {
         path: '/admin/user',
         name: 'AdminUser',
-        component: () => import('../views/admin/User.vue')
+        component: () => import('../views/admin/User')
       },
       {
         path: '/admin/post',
         name: 'AdminPost',
-        component: () => import('../views/admin/Post.vue')
+        component: () => import('../views/admin/Post')
       },
       {
         path: '/admin/photo',
         name: 'AdminPhoto',
-        component: () => import('../views/admin/Photo.vue')
+        component: () => import('../views/admin/Photo')
       },
       {
         path: '/admin/config/site',
         name: 'AdminSiteConfig',
-        component: () => import('../views/admin/SiteConfig.vue')
+        component: () => import('../views/admin/SiteConfig')
       },
       {
         path: '/admin/config/qiniu',
         name: 'AdminQiniuConfig',
-        component: () => import('../views/admin/QiniuConfig.vue')
+        component: () => import('../views/admin/QiniuConfig')
       },
       {
         path: '/admin/config/word',
         name: 'AdminWordConfig',
-        component: () => import('../views/admin/WordConfig.vue')
+        component: () => import('../views/admin/WordConfig')
       },
       {
         path: '/admin/tag',
         name: 'AdminTag',
-        component: () => import('../views/admin/Tag.vue')
+        component: () => import('../views/admin/Tag')
       },
       {
         path: '/admin/section',
         name: 'AdminSection',
-        component: () => import('../views/admin/Section.vue')
+        component: () => import('../views/admin/Section')
       },
       {
         path: '/admin/billboard',
         name: 'AdminBillboard',
-        component: () => import('../views/admin/Billboard.vue')
+        component: () => import('../views/admin/Billboard')
       }
     ]
   }

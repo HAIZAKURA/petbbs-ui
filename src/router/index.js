@@ -117,6 +117,11 @@ const routes = [
         path: '/edit/:id',
         name: 'EditPost',
         component: () => import('../views/EditPost')
+      },
+      {
+        path: '/404',
+        name: '404',
+        component: () => import('../views/404.vue')
       }
     ]
   },

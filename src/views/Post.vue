@@ -103,16 +103,20 @@ export default {
       })
     },
     async fetchPost() {
-      getPost(this.$route.params.id).then((res) => {
-        let { data } = res;
-        document.title = data.post.title + ' - ' + this.$root.site_info.site_title
-        this.post = data.post
-        this.tags = data.tags
-        this.postUser = data.user
-        this.comments = data.comments
-        this.renderMarkdown(this.post.content)
-        this.flag = true
-      })
+      getPost(this.$route.params.id)
+          .then((res) => {
+            let { data } = res;
+            document.title = data.post.title + ' - ' + this.$root.site_info.site_title
+            this.post = data.post
+            this.tags = data.tags
+            this.postUser = data.user
+            this.comments = data.comments
+            this.renderMarkdown(this.post.content)
+            this.flag = true
+          })
+          .catch(() => {
+            this.$router.push({ name: '404' })
+          })
     },
     handleDelete(postId) {
       if (window.confirm("确认删除本话题？")) {

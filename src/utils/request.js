@@ -3,7 +3,7 @@ import { Message, MessageBox } from 'element-ui'
 import { getToken } from '@/utils/auth'
 import store from '@/store'
 
-// 1.创建axios实例
+// 创建axios实例
 const service = axios.create({
   // 公共接口 url = base url + request url
   baseURL: process.env.VUE_APP_SERVER_URL,
@@ -16,7 +16,7 @@ const service = axios.create({
 // 设置cross跨域 并设置访问权限 允许跨域携带cookie信息,使用JWT可关闭
 service.defaults.withCredentials = false
 
-// 2.请求拦截器request interceptor
+// 请求拦截器 request interceptor
 service.interceptors.request.use(
   config => {
     // 发请求前做的一些处理，数据转化，配置请求头，设置token,设置loading等，根据需求去添加
@@ -36,7 +36,7 @@ service.interceptors.request.use(
   }
 )
 
-// 3.响应拦截器
+// 响应拦截器
 service.interceptors.response.use(
   // 接收到响应数据并成功后的一些共有的处理，关闭loading等
   response => {
@@ -45,6 +45,7 @@ service.interceptors.response.use(
     if (res.code !== 200) {
       // 50008: 非法Token; 50012: 异地登录; 50014: Token失效;
       if (res.code === 401 || res.code === 50012 || res.code === 50014) {
+        this.$store.dispatch('user/logout')
         // 重新登录
         MessageBox.confirm('会话失效，您可以留在当前页面，或重新登录', '权限不足', {
           confirmButtonText: '确定',
@@ -56,13 +57,13 @@ service.interceptors.response.use(
         })
       }
       else { // 其他异常直接提示
-        // Message({
-        //   showClose: true,
-        //   message: res.message || 'Error',
-        //   type: 'error',
-        //   duration: 3 * 1000
-        // })
-        window.alert(res.message);
+        Message({
+          showClose: true,
+          message: res.message || 'Error',
+          type: 'error',
+          duration: 3 * 1000
+        })
+        // window.alert(res.message);
       }
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
@@ -81,5 +82,5 @@ service.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-// 4.导入文件
+// 导出文件
 export default service

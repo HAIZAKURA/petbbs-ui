@@ -74,6 +74,10 @@
             <el-menu-item class="aside-submenu-item" index="/admin/config/word">
               <span>敏&nbsp;感&nbsp;词</span>
             </el-menu-item>
+
+            <el-menu-item class="aside-submenu-item" index="/admin/config/friend">
+              <span>友&nbsp;情&nbsp;链</span>
+            </el-menu-item>
           </el-submenu>
         </el-menu>
       </el-aside>

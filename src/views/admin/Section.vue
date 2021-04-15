@@ -64,12 +64,14 @@
                 v-if="scope.row.state"
                 type="success"
                 effect="dark"
+                size="small"
             >启用</el-tag>
 
             <el-tag
                 v-else
                 type="danger"
                 effect="dark"
+                size="small"
             >停用</el-tag>
           </template>
         </el-table-column>

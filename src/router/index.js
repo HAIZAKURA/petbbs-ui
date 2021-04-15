@@ -184,6 +184,11 @@ const routes = [
         path: '/admin/billboard',
         name: 'AdminBillboard',
         component: () => import('../views/admin/Billboard')
+      },
+      {
+        path: '/admin/config/friend',
+        name: 'AdminFriend',
+        component: () => import('../views/admin/FriendConfig')
       }
     ]
   }

@@ -156,7 +156,7 @@ export default {
                 })
           } else {
             return false;
-          }
+          }1
         })
       } else {
         window.alert("请完成验证")

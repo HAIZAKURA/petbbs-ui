@@ -39,13 +39,14 @@
         <el-table-column
             prop="email"
             label="邮箱"
-            min-width="45"
+            min-width="30"
         ></el-table-column>
 
         <el-table-column
             prop="roleId"
             label="用户组"
             min-width="30"
+            align="center"
             sortable
             :formatter="roleFormat"
         ></el-table-column>
@@ -53,7 +54,8 @@
         <el-table-column
             prop="active"
             label="激活"
-            min-width="20"
+            min-width="22"
+            align="center"
             sortable
         >
           <template slot-scope="scope">
@@ -65,7 +67,8 @@
         <el-table-column
             prop="status"
             label="状态"
-            min-width="20"
+            min-width="22"
+            align="center"
             sortable
         >
           <template slot-scope="scope">
@@ -77,11 +80,14 @@
         <el-table-column
             prop="createTime"
             label="注册时间"
-            min-width="45"
+            min-width="46"
             sortable
         ></el-table-column>
 
-        <el-table-column min-width="30" align="right">
+        <el-table-column
+            min-width="30"
+            align="center"
+        >
           {{/* eslint-disable-next-line vue/no-unused-vars */}}
           <template slot="header" slot-scope="scope">
             <el-input

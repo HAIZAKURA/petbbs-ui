@@ -5,9 +5,9 @@
     </div>
     <div v-for="(item, key) in tagList" :key="key" class="tag-div">
       <router-link :to="{ name: 'TagPostList', params: { id: item.id }, query: { name: item.name }}">
-        <el-tag effect="dark" :type="item.type">
+        <el-tag effect="dark" :type="item.type" style="font-size: 1em">
           <i class="fas fa-tag"></i>
-          <span class="mx-1"></span>
+          <span class="mx-2"></span>
           <span>{{ item.name }}</span>
         </el-tag>
       </router-link>

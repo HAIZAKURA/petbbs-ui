@@ -43,12 +43,12 @@
         <el-table-column
             prop="postCount"
             label="话题数"
-            min-width="15"
+            min-width="14"
             sortable
         ></el-table-column>
 
         <el-table-column
-            min-width="15"
+            min-width="16"
         >
           <template slot-scope="scope">
             <el-button

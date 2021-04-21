@@ -135,12 +135,12 @@ export default {
     // console.log(this.user)
   },
   mounted() {
-    if (this.token) {
+    if (this.token && this.user) {
       getNewNotify()
           .then(() => {
             setInterval(() => {
               // console.log(this.token)
-              if (this.token) {
+              if (this.token && this.user) {
                 this.fetchNewNotify()
               }
             }, 3000)
@@ -148,7 +148,7 @@ export default {
     }
   },
   methods: {
-    async logout() {
+    logout() {
       this.$store.dispatch('user/logout')
           .then(() => {
             this.$message({

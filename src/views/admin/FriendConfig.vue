@@ -29,6 +29,7 @@
             prop="icon"
             label="图标"
             min-width="10"
+            align="center"
         >
           <template slot-scope="scope">
             <img style="height: 32px" :src="scope.row.icon" />
@@ -39,18 +40,21 @@
             prop="title"
             label="名称"
             min-width="10"
+            align="center"
         ></el-table-column>
 
         <el-table-column
             prop="link"
             label="链接"
             min-width="30"
+            align="center"
         ></el-table-column>
 
         <el-table-column
             prop="state"
             label="状态"
             min-width="6"
+            align="center"
         >
           <template slot-scope="scope">
             <el-tag

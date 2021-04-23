@@ -74,7 +74,7 @@ service.interceptors.response.use(
   },
   error => {
     /** *** 接收到异常响应的处理开始 *****/
-    // console.log('err' + error) // for debug
+    // console.log('err' + error)
     Message({
       showClose: true,
       message: error.message,
@@ -84,5 +84,5 @@ service.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-// 导出文件
+
 export default service

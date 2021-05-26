@@ -357,10 +357,11 @@ export default {
   position relative
 
 .waterfall-card-content
-  padding 0 1em 0.5em 1em
+  margin-top -1em
+  padding 0 0.5em 0.5em 0.5em
 
 .waterfall-card-footer
-  font-size 0.25em
+  font-size 0.75em
   padding 0 2em
   border-top 1px solid #DCDFE6
 </style>

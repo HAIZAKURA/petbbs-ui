@@ -27,7 +27,7 @@
       </el-card>
 
       <el-card>
-        <el-tabs v-model="activeTab">
+        <el-tabs v-model="activeTab" @tab-click="handleClick">
           <el-tab-pane label="📜 他的话题" name="post">
             <div>
               <div v-if="postList.length > 0">
@@ -44,7 +44,7 @@
           </el-tab-pane>
 
           <el-tab-pane label="📷 他的照片" name="photo">
-            <Waterfall v-if="photoList > 0" :options="options">
+            <Waterfall v-if="photoList.length > 0" :options="options">
               <WaterfallItem v-for="(item, key) in photoList" :key="key" class="waterfallitem">
                 <el-card :body-style="{ padding: '0' }" class="waterfall-card">
                   <div class="block" style="text-align: center">
@@ -141,6 +141,8 @@ export default {
   methods: {
     async fetchList(tabName) {
       if (tabName === 'post') {
+        this.page.current = 1
+        this.page.size = 10
         getUserByNameOrId(this.$route.params.id, this.page.current, this.page.size).then((res) => {
           let { data } = res
           this.page.current = data.posts.current
@@ -150,9 +152,12 @@ export default {
           this.userInfo = data.user
         })
       } else if (tabName === 'photo') {
+        this.page.current = 1
+        this.page.size = 10
         getPhotoListByUser(this.$route.params.id, this.page.current, this.page.size)
             .then((res) => {
               let { data } = res
+              // console.log(data)
               this.page.current = data.current
               this.page.size = data.size
               this.page.total = data.total
@@ -161,6 +166,7 @@ export default {
       }
     },
     handleClick(tab) {
+      // console.log(tab.name)
       this.fetchList(tab.name)
     }
   }
@@ -224,10 +230,11 @@ export default {
   position relative
 
 .waterfall-card-content
-  padding 0 1em 0.5em 1em
+  margin-top -1em
+  padding 0 0.5em 0.5em 0.5em
 
 .waterfall-card-footer
-  font-size 0.25em
+  font-size 0.75em
   padding 0 2em
   border-top 1px solid #DCDFE6
 </style>

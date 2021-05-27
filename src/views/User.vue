@@ -235,6 +235,6 @@ export default {
 
 .waterfall-card-footer
   font-size 0.75em
-  padding 0 2em
+  padding 0 1em
   border-top 1px solid #DCDFE6
 </style>

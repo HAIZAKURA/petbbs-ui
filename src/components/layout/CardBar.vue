@@ -2,9 +2,9 @@
   <section>
     <Welcome></Welcome>
     <Tips></Tips>
+    <SideAd></SideAd>
     <Links></Links>
     <Status></Status>
-    <SideAd></SideAd>
   </section>
 </template>
 

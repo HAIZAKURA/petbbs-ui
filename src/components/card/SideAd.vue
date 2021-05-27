@@ -1,5 +1,5 @@
 <template>
-  <el-card class="box-card">
+  <el-card class="box-card" v-if="$root.site_info.site_side_ad">
     <div class="ad-div">
       <el-tag class="ad-tag" type="info" size="small" effect="plain">广告</el-tag>
       <div v-html="$root.site_info.site_side_ad"></div>

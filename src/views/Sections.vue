@@ -93,7 +93,7 @@
 
       <div slot="footer">
         <el-button @click="handleAddClose">取消</el-button>
-        <el-button type="primary" @click="handleAdd">修改</el-button>
+        <el-button type="primary" @click="handleAdd">申请</el-button>
       </div>
     </el-dialog>
   </div>

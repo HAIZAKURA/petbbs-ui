@@ -128,24 +128,10 @@ export default {
   computed: {
     ...mapGetters(['token', 'user'])
   },
-  created() {
-    // getSiteInfo().then(data => {
-    //   this.$root.site_info = data.data
-    // })
-    // console.log(this.user)
-  },
   mounted() {
-    if (this.token && this.user) {
-      getNewNotify()
-          .then(() => {
-            setInterval(() => {
-              // console.log(this.token)
-              if (this.token && this.user) {
-                this.fetchNewNotify()
-              }
-            }, 3000)
-          })
-    }
+    setInterval(() => {
+      this.fetchNewNotify()
+    }, 1000)
   },
   methods: {
     logout() {
@@ -162,13 +148,12 @@ export default {
           })
     },
     fetchNewNotify() {
-      getNewNotify()
-          .then((data) => {
-            this.newNotifyNum = data.data.length
-          })
-          .catch(() => {
-            this.$router.push({ name: 'Login' })
-          })
+      if (this.token && this.user) {
+        getNewNotify()
+            .then((data) => {
+              this.newNotifyNum = data.data.length
+            })
+      }
     },
     gotoHome() {
       this.$router.push({ path: '/' })

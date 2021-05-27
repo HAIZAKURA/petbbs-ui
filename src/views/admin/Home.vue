@@ -52,7 +52,7 @@
             <span>&nbsp;照&nbsp;片</span>
           </el-menu-item>
 
-          <el-menu-item class="aside-menu-item" index="/admin/billboard">
+          <el-menu-item class="aside-menu-item" index="/admin/billboard" v-if="user.roleId === 1">
             <i class="el-icon-postcard"></i>
             <span>&nbsp;公&nbsp;告</span>
           </el-menu-item>

@@ -41,7 +41,7 @@
                 <img class="comment-box-avatar" :src="item.avatar + '?imageView2/1/w/100/h/100/format/webp/q/80'" :alt="item.alias" />
               </el-col>
 
-              <el-col :span="21">
+              <el-col :span="20">
                 <div class="comment-box-info">
                   <span class="comment-author">
                     <router-link :to="{ name: 'User', params: { id: item.userId } }" style="font-weight: 600">{{ item.alias }}</router-link>
@@ -68,9 +68,18 @@
                 </div>
               </el-col>
 
-              <el-col :span="1" style="text-align: right">
+              <el-col :span="2" style="text-align: right">
                 <div class="comment-box-quote">
                   <span class="comment-quote has-text-grey">
+                    <el-link type="danger" :underline="false">
+                      <i
+                          v-if="(user.id === item.userId) || (user.roleId === 1 || user.roleId === 2)"
+                          class="fas fa-trash-alt"
+                          @click="handleDelete(item.id)"
+                      ></i>
+                      <span class="mx-2"></span>
+                    </el-link>
+
                     <el-link type="info" :underline="false">
                       <i class="fas fa-reply" @click="handleQuote(item)"></i>
                     </el-link>
@@ -108,6 +117,8 @@ import Pagination from '@/components/layout/Pagination'
 
 import { getCommentList } from '@/api/comment'
 import { addComment, addCommentPhoto } from '@/api/comment'
+import { delComment, delCommentByAdmin } from '@/api/comment'
+import { mapGetters } from 'vuex'
 
 export default {
   name: "CommentList",
@@ -127,12 +138,12 @@ export default {
     return {
       page: {
         current: 1,
-        size: 10,
+        size: 5,
         total: 0
       },
       commentList: [
         { avatar: String, createTime: Date },
-        { current: 1, size: 10, total: 0 }
+        { current: 1, size: 5, total: 0 }
       ],
       quote: {
         id: '',
@@ -148,6 +159,9 @@ export default {
   created() {
     this.fetchCommentList()
   },
+  computed: {
+    ...mapGetters(['token', 'user'])
+  },
   methods: {
     async fetchCommentList() {
       getCommentList(this.postId, this.page.current, this.page.size).then((res) => {
@@ -156,6 +170,7 @@ export default {
         this.page.size = data.size
         this.page.total = data.total
         this.commentList = data.records
+        // console.log(this.commentList)
       })
     },
     handleQuote(quote) {
@@ -198,6 +213,29 @@ export default {
           this.quote.id = ''
           this.quote.content = ''
         })
+      }
+    },
+    handleDelete(id) {
+      if (window.confirm("确认删除本评论？")) {
+        if (this.user.roleId === 1 || this.user.roleId === 2) {
+          delCommentByAdmin(id)
+              .then(() => {
+                this.$message({
+                  message: '删除成功',
+                  type: 'success'
+                })
+                this.fetchCommentList()
+              })
+        } else {
+          delComment(id)
+              .then(() => {
+                this.$message({
+                  message: '删除成功',
+                  type: 'success'
+                })
+                this.fetchCommentList()
+              })
+        }
       }
     }
   }

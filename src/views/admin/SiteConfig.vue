@@ -57,6 +57,13 @@
               ></el-input>
             </el-form-item>
 
+            <el-form-item label="Banner">
+              <el-input
+                  type="textarea"
+                  v-model="siteConfig.site_banner"
+              ></el-input>
+            </el-form-item>
+
             <el-form-item>
               <el-button type="primary" @click="upSiteConfig">修改</el-button>
             </el-form-item>
@@ -138,7 +145,8 @@ export default {
         site_logo: '',
         site_domain: '',
         site_beian: '',
-        site_side_ad: ''
+        site_side_ad: '',
+        site_banner: ''
       },
       mailConfig: {
         mail_from: '',
@@ -166,13 +174,14 @@ export default {
   methods: {
     async fetchConfig() {
       getConfig().then((res) => {
-        // console.log(res)
+        console.log(res)
         let { data } = res
         this.siteConfig.site_title = data.site_title
         this.siteConfig.site_logo = data.site_logo
         this.siteConfig.site_domain = data.site_domain
         this.siteConfig.site_beian = data.site_beian
         this.siteConfig.site_side_ad = data.site_side_ad
+        this.siteConfig.site_banner = data.site_banner
         this.mailConfig.mail_from = data.mail_from
         this.mailConfig.mail_user = data.mail_user
         this.mailConfig.mail_pass = data.mail_pass
@@ -202,6 +211,10 @@ export default {
         {
           'item': 'site_side_ad',
           'value': this.siteConfig.site_side_ad
+        },
+        {
+          'item': 'site_banner',
+          'value': this.siteConfig.site_banner
         }
       ]
       updateConfig(body).then(() => {

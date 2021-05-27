@@ -73,11 +73,11 @@ export default {
     return {
       postList: [
         { avatar: String, createTime: Date },
-        { current: 1, size: 10, total: 0 }
+        { current: 1, size: 20, total: 0 }
       ],
       page: {
         current: 1,
-        size: 10,
+        size: 20,
         total: 0
       },
       activeTab: 'latest'

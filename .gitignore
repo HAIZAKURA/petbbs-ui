@@ -21,3 +21,4 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+/src/assets/plugins/fontawesome-pro-5.13.0-web/

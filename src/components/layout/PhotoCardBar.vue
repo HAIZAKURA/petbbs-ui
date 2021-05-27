@@ -1,5 +1,7 @@
 <template>
   <div>
+    <Shortcut></Shortcut>
+
     <el-card class="box-card">
       <div slot="header">
         <span>📃 发表照片</span>
@@ -26,10 +28,12 @@ import Tips from '@/components/card/Tips'
 import Links from '@/components/card/Links'
 import SideAd from '@/components/card/SideAd'
 import { mapGetters } from 'vuex'
+import Shortcut from '@/components/card/Shortcut'
 
 export default {
   name: "PhotoCardBar",
   components: {
+    Shortcut,
     Tips,
     Links,
     SideAd

@@ -4,6 +4,12 @@
       <p v-for="(item, key) in billboard" class="box" v-bind:key="key">🔔 公告：{{ item.content }}</p>
     </div>
 
+    <div class="home-banner" v-if="$root.site_info.site_banner">
+      <el-card :body-style="{ padding: '0px' }">
+        <div class="home-banner-div" v-html="$root.site_info.site_banner"></div>
+      </el-card>
+    </div>
+
     <div class="home-panel">
       <Panel></Panel>
     </div>
@@ -62,5 +68,11 @@ export default {
 .home-panel
   margin-top 1em
   margin-bottom 0.25em
+
+.home-banner
+  margin-top 1em
+
+.home-banner-div
+  margin -0.5em
 
 </style>

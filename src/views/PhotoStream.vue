@@ -24,20 +24,40 @@
               </el-image>
             </div>
 
-            <router-link :to="{ name: 'Photo', params: { id: item.id } }">
-              <div class="waterfall-card-content">
-                <span>{{ item.content }}</span>
-              </div>
-            </router-link>
+<!--            <router-link :to="{ name: 'Photo', params: { id: item.id } }">-->
+<!--              <div class="waterfall-card-content">-->
+<!--                <span>{{ item.content }}</span>-->
+<!--              </div>-->
+<!--            </router-link>-->
+
+            <div>
+              <el-row :gutter="6">
+                <el-col :span="20">
+                  <router-link :to="{ name: 'Photo', params: { id: item.id } }">
+                    <div class="waterfall-card-content">
+                      <span>{{ item.content }}</span>
+                    </div>
+                  </router-link>
+                </el-col>
+
+                <el-col :span="4" class="has-text-right">
+                  <div class="waterfall-card-content">
+                    <a :ref="'goodBtn' + item.id" @click="handleGood(item.id)">
+                      <i class="fas fa-thumbs-up"></i>
+                    </a>
+                  </div>
+                </el-col>
+              </el-row>
+            </div>
 
             <div class="waterfall-card-footer">
-              <el-row :gutter="10" class="has-text-grey">
-                <el-col :span="8" style="text-align: left">
+              <el-row :gutter="7" class="has-text-grey">
+                <el-col :span="8" class="has-text-left">
                   <span><i class="fas fa-comment"></i>&nbsp;{{ item.comments }}</span>
                   <span class="mx-1"></span>
                   <span><i class="fas fa-eye"></i>&nbsp;{{ item.view }}</span>
                 </el-col>
-                <el-col :span="16" style="text-align: right">
+                <el-col :span="16" class="has-text-right">
                   <span>{{ dayjs(item.createTime).calendar() }}</span>
                 </el-col>
               </el-row>
@@ -74,7 +94,7 @@
 <script>
 import Pagination from 'components/layout/Pagination'
 import PhotoCardBar from 'components/layout/PhotoCardBar'
-import { getList } from '@/api/photo'
+import { getList, goodPhoto } from '@/api/photo'
 import { Waterfall, WaterfallItem } from 'vue2-waterfall'
 
 export default {
@@ -123,6 +143,11 @@ export default {
         this.photoList.forEach((item) => {
           this.srcList.push(item.photo + '?imageView2/0/format/webp/q/80')
         })
+      })
+    },
+    handleGood(id) {
+      goodPhoto(id).then(() => {
+        this.$refs["goodBtn" + id][0].setAttribute('class', 'has-text-danger')
       })
     }
   }

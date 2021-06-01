@@ -3,21 +3,40 @@
     <div class="column is-three-quarters">
       <el-card>
         <div slot="header">
-          <div class="photo-content">
-            <p>{{ photo.content }}</p>
-          </div>
-          <div class="has-text-grey">
-            <router-link :to="{ name: 'User', params: { id: photoUser.id } }">
-              <span>{{ photoUser.alias }}</span>
-            </router-link>
-            <span class="mx-2">·</span>
-            <span>浏览 {{ photo.view }}</span>
-            <span class="mx-2">·</span>
-            <span>发布于{{ dayjs(photo.createTime).format('YYYY/MM/DD HH:MM:ss') }}</span>
-          </div>
+          <el-row>
+            <el-col :span="20">
+              <div class="photo-content">
+                <p>{{ photo.content }}</p>
+              </div>
+
+              <div class="has-text-grey">
+                <router-link :to="{ name: 'User', params: { id: photoUser.id } }">
+                  <span>{{ photoUser.alias }}</span>
+                </router-link>
+                <span class="mx-2">·</span>
+                <span>浏览 {{ photo.view }}</span>
+                <span class="mx-2">·</span>
+                <span>发布于{{ dayjs(photo.createTime).format('YYYY/MM/DD HH:MM:ss') }}</span>
+              </div>
+            </el-col>
+
+            <el-col :span="4" class="has-text-right">
+              <div class="good-item">
+                <el-tag type="success" effect="plain">
+                  <span>{{ photo.good }}</span>
+                </el-tag>
+
+                <span class="mx-2"></span>
+
+                <el-button type="success" circle @click="handleGood">
+                  <i class="fas fa-thumbs-up"></i>
+                </el-button>
+              </div>
+            </el-col>
+          </el-row>
         </div>
 
-        <div>
+        <div class="has-text-centered">
           <div class="block" style="text-align: center">
             <el-image :src="photo.photo + '?imageView2/0/format/webp/q/80'" :alt="photo.content">
               <div slot="error" class="image-slot" style="height: 200px;text-align: center;line-height: 200px;font-size: 1.5em;color: #909399">
@@ -48,7 +67,7 @@
 </template>
 
 <script>
-import { getPhoto, delPhoto, delPhotoByAdmin } from '@/api/photo'
+import { getPhoto, delPhoto, delPhotoByAdmin, goodPhoto } from '@/api/photo'
 import PhotoCardBar from 'components/layout/PhotoCardBar'
 import CommentList from '@/components/comment/CommentList'
 import { mapGetters } from 'vuex'
@@ -105,6 +124,11 @@ export default {
           })
         }
       }
+    },
+    handleGood() {
+      goodPhoto(this.photo.id).then(() => {
+        this.fetchPhoto()
+      })
     }
   }
 }

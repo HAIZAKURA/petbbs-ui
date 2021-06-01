@@ -2,6 +2,8 @@
   <div>
     <Shortcut></Shortcut>
 
+    <Share></Share>
+
     <el-card class="box-card">
       <div slot="header">
         <span>📃 发表照片</span>
@@ -29,10 +31,12 @@ import Links from '@/components/card/Links'
 import SideAd from '@/components/card/SideAd'
 import { mapGetters } from 'vuex'
 import Shortcut from '@/components/card/Shortcut'
+import Share from '@/components/card/Share'
 
 export default {
   name: "PhotoCardBar",
   components: {
+    Share,
     Shortcut,
     Tips,
     Links,

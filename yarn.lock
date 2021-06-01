@@ -5369,6 +5369,11 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
+m-share@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.nlark.com/m-share/download/m-share-1.0.2.tgz#102efcb56be72be76d45389c0d132c4e63c94dbf"
+  integrity sha1-EC78tWvnK+dtRTicDRMsTmPJTb8=
+
 make-dir@^2.0.0:
   version "2.1.0"
   resolved "https://registry.npm.taobao.org/make-dir/download/make-dir-2.1.0.tgz#5f0310e18b8be898cc07009295a30ae41e91e6f5"

@@ -57,6 +57,8 @@
     </div>
     <div class="column is-one-quarter">
       <PostAuthor v-if="flag" :user="postUser"></PostAuthor>
+
+      <Share></Share>
     </div>
   </div>
 </template>
@@ -72,10 +74,12 @@ import { mapGetters } from 'vuex'
 
 import Vditor from 'vditor'
 import 'vditor/dist/index.css'
+import Share from '@/components/card/Share'
 
 export default {
   name: "Post",
   components: {
+    Share,
     PostAuthor,
     CommentList,
   },

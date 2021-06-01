@@ -54,3 +54,10 @@ export function delPhotoByAdmin(id) {
     method: 'delete'
   })
 }
+
+export function goodPhoto(id) {
+  return request({
+    url: '/api/photo/' + id,
+    method: 'put'
+  })
+}

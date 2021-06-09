@@ -73,7 +73,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-    // 接收到异常响应处理开
+    // 异常响应处理
     // console.log('err' + error)
     Message({
       showClose: true,

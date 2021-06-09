@@ -14,6 +14,7 @@ module.exports = {
     // can be overwritten by process.env.HOST
     host: host,
     port: port,
+    disableHostCheck: true
     // proxy: {
     //   '/api': {
     //     target: 'http://localhost:8080/api/',

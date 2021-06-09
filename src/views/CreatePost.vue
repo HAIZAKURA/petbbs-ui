@@ -232,8 +232,7 @@ export default {
       preview: {
         delay: 0,
         hljs: {
-          style: 'monokai',
-          lineNumber: true
+          style: 'monokai'
         }
       },
       toolbarConfig: {

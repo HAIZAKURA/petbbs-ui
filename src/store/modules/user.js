@@ -3,8 +3,8 @@ import { getUserInfo } from '@/api/user'
 import { getToken, removeToken, setToken } from '@/utils/auth'
 
 const state = {
-  token: getToken(), // token
-  user: '', // 用户对象
+  token: getToken(),
+  user: '',
   username: '',
   avatar: '',
   bio: '',

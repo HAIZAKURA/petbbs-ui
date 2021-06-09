@@ -8329,10 +8329,10 @@ vary@~1.1.2:
   resolved "https://registry.npm.taobao.org/vary/download/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-vditor@^3.8.2:
-  version "3.8.2"
-  resolved "https://registry.npm.taobao.org/vditor/download/vditor-3.8.2.tgz#0e7f1631736854b2a7621a96e9ef2fa25291921d"
-  integrity sha1-Dn8WMXNoVLKnYhqW6e8volKRkh0=
+vditor@^3.8.5:
+  version "3.8.5"
+  resolved "https://registry.nlark.com/vditor/download/vditor-3.8.5.tgz#5590810eeeeca5ad0d5b5b465ef6bcc5cd33be5f"
+  integrity sha1-VZCBDu7spa0NW1tGXva8xc0zvl8=
   dependencies:
     diff-match-patch "^1.0.5"
 

@@ -223,11 +223,11 @@ export default {
   mounted() {
     this.contentEditor = new Vditor('vditor', {
       height: 500,
+      mode: 'ir',
       placeholder: '此处为话题内容……',
-      theme: 'classic',
       counter: {
         enable: true,
-        type: 'markdown'
+        type: 'text'
       },
       preview: {
         delay: 0,
@@ -236,15 +236,13 @@ export default {
           lineNumber: true
         }
       },
-      tab: '\t',
-      typewriterMode: true,
       toolbarConfig: {
         pin: true
       },
       cache: {
+        id: false,
         enable: false
-      },
-      mode: 'sv'
+      }
     })
     this.fetchTagList()
     this.fetchSectionList()

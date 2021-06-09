@@ -37,7 +37,7 @@ service.interceptors.request.use(
 
 // 响应拦截器
 service.interceptors.response.use(
-  // 接收到响应数据后处理
+  // 接收响应数据处理
   response => {
     const res = response.data
     // 如果代码不是200 报错

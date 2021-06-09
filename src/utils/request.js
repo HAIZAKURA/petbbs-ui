@@ -23,8 +23,6 @@ service.interceptors.request.use(
     // 发请求前处理 数据转化 配置请求头 设置token 设置loading
     // 使用token 本地localStorage
     if (store.getters.token) {
-      // config.params = {'token': token}  // 如果要求携带在参数中
-      // config.headers.token = token;  // 如果要求携带在请求头中
       // bearer w3c规范
       config.headers['Authorization'] = 'Bearer ' + getToken()
     }
@@ -32,7 +30,7 @@ service.interceptors.request.use(
   },
   error => {
     // do something with request error
-    // console.log(error) // for debug
+    // console.log(error)
     return Promise.reject(error)
   }
 )

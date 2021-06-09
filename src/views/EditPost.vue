@@ -148,7 +148,7 @@ export default {
         preview: {
           hljs: { style: 'monokai' }
         },
-        mode: 'sv',
+        mode: 'ir',
         after: () => {
           this.contentEditor.setValue(md)
         }

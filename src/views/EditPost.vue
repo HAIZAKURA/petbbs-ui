@@ -145,8 +145,15 @@ export default {
       this.contentEditor = new Vditor('vditor', {
         height: 460,
         placeholder: '输入话题内容',
+        counter: {
+          enable: true,
+          type: 'text'
+        },
         preview: {
-          hljs: { style: 'monokai' }
+          delay: 0,
+          hljs: {
+            style: 'monokai'
+          }
         },
         mode: 'ir',
         after: () => {
